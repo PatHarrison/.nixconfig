@@ -1,0 +1,9 @@
+{ config, pkgs, lib, ... }:
+
+{
+  networking.hostName = "odin";
+  networking.networkmanager.enable = true;
+  networking.nameservers = [ "192.168.68.169" ];
+  time.timeZone = "America/Edmonton";
+  i18n.defaultLocale = "en_US.UTF-8";
+}

@@ -1,0 +1,15 @@
+{ config, pkgs, lib, ... }:
+
+{
+  nixpkgs.config.allowUnfree = true;
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "ntfs" ];
+  boot.kernelParams = [
+    "nvidia_drm.modeset=1"
+    "nvidia_drm.fbdev=1"
+  ];
+  boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
+  hardware.i2c.enable = true;
+}
