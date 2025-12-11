@@ -10,5 +10,6 @@
   stylix.targets = {
     gtk.enable = true;
     qt.enable = true;
+    firefox.profileNames = [ "default" ];
   };
 }

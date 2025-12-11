@@ -33,12 +33,12 @@
     initExtra = ''
       # Git prompt function
       GIT_BRANCH_ICON=""
-      GIT_STAGED_ICON=""
+      GIT_STAGED_ICON=""
       GIT_UNSTAGED_ICON="✚"
       GIT_UNTRACKED_ICON="…"
       GIT_AHEAD_ICON=""
       GIT_BEHIND_ICON=""
-      GIT_CLEAN_ICON=""
+      GIT_CLEAN_ICON=""
 
       git_prompt() {
         if git rev-parse --is-inside-work-tree &>/dev/null; then
@@ -81,6 +81,7 @@
       export HISTSIZE=10000
       export HISTFILESIZE=20000
       export HISTCONTROL=ignoreboth:erasedups
+      shopt -s checkwinsize
       shopt -s histappend
       
       # Enable programmable completion

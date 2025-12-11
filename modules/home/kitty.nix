@@ -16,6 +16,7 @@ in
       shell = "bash";
       kitty_mod = "ctrl+shift";
       term = "xterm-256color";
+      disable_ligatures = "cursor";
 
       background_opacity = "0.9";
       

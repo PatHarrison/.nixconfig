@@ -13,6 +13,8 @@
     ../../modules/nixos/locale.nix        # Optional locale tweaks
   ];
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   users.users.patrick = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "audio" "input" ];

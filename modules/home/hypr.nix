@@ -22,7 +22,7 @@ in
         gaps_in = 4;
         gaps_out = 8;
         layout = "dwindle";
-      };hypr
+      };
 
       dwindle = {
         pseudotile = true;
@@ -59,6 +59,7 @@ in
       };
 
       exec-once = [
+        "waybar"
       ];
 
       windowrulev2 = [
