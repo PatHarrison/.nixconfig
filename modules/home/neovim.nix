@@ -98,11 +98,6 @@
       vim.opt.scrolloff = 8
       vim.opt.clipboard = 'unnamedplus'
 
-      
-      -- Theme
-      vim.o.background = 'dark'
-      vim.cmd([[colorscheme mistwood]])
-      
       -- VimTeX basic configs
       vim.cmd("let g:vimtex_view_method = 'zathura'")
       vim.g.vimtex_compiler_latexmk = {
@@ -240,6 +235,9 @@
       
       -- Clear search highlighting
       keymap('n', '<Esc>', ':nohlsearch<CR>')
+      
+      -- Theme
+      vim.cmd([[colorscheme mistwood]])
     '';
     
     extraPackages = with pkgs; [

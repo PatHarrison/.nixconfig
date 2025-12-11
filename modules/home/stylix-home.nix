@@ -11,5 +11,6 @@
     gtk.enable = true;
     qt.enable = true;
     firefox.profileNames = [ "default" ];
+    neovim.enable = false;
   };
 }

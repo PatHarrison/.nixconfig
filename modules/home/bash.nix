@@ -30,8 +30,8 @@
     initExtra = ''
       # Git icons
       GIT_BRANCH_ICON=""
-      GIT_STAGED_ICON=""
-      GIT_UNSTAGED_ICON="✚"
+      GIT_STAGED_ICON="󱖫 "
+      GIT_UNSTAGED_ICON=" "
       GIT_UNTRACKED_ICON="…"
       GIT_AHEAD_ICON=""
       GIT_BEHIND_ICON=""
@@ -50,7 +50,7 @@
         
         # Check for staged files
         if ! git diff --cached --quiet 2>/dev/null; then
-          printf '\001\e[32m\002%s\001\e[0m\002' "$GIT_STAGED_ICON"
+          printf '\001\e[31m\002%s\001\e[0m\002' "$GIT_STAGED_ICON"
         fi
         
         # Check for unstaged changes
