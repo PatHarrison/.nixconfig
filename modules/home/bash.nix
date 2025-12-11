@@ -29,13 +29,13 @@
     # Bash initialization
     initExtra = ''
       # Git prompt function
-      GIT_BRANCH_ICON=""
-      GIT_STAGED_ICON=""
+      GIT_BRANCH_ICON=""
+      GIT_STAGED_ICON=""
       GIT_UNSTAGED_ICON="✚"
       GIT_UNTRACKED_ICON="…"
-      GIT_AHEAD_ICON=""
-      GIT_BEHIND_ICON=""
-      GIT_CLEAN_ICON=""
+      GIT_AHEAD_ICON=""
+      GIT_BEHIND_ICON=""
+      GIT_CLEAN_ICON=""
       
       git_prompt() {
         if git rev-parse --is-inside-work-tree &>/dev/null; then
@@ -60,11 +60,11 @@
           # FIXED: Wrap all ANSI codes in \[ \] for proper bash prompt calculation
           local output=""
           output+="\[\e[33m\]$GIT_BRANCH_ICON$branch\[\e[0m\] "
-          [[ -n $staged ]] && output+="\[\e[32m\]$staged\[\e[0m\]"
+          [[ -n $staged ]] && output+="\[\e[33m\]$staged\[\e[0m\]"
           [[ -n $unstaged ]] && output+="\[\e[31m\]$unstaged\[\e[0m\]"
           [[ -n $untracked ]] && output+="\[\e[31m\]$untracked\[\e[0m\]"
           [[ -n $ahead$behind ]] && output+="\[\e[31m\]$ahead$behind\[\e[0m\]"
-          [[ -n $clean ]] && output+="\[\e[33m\]$clean\[\e[0m\]"
+          [[ -n $clean ]] && output+="\[\e[32m\]$clean\[\e[0m\]"
           
           echo -n "$output"
         fi

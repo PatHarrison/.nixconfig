@@ -100,8 +100,8 @@
 
       
       -- Theme
-      vim.cmd([[colorscheme mistwood]])
       vim.o.background = 'dark'
+      vim.cmd([[colorscheme mistwood]])
       
       -- VimTeX basic configs
       vim.cmd("let g:vimtex_view_method = 'zathura'")
