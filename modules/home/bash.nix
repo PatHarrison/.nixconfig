@@ -29,13 +29,13 @@
     # Bash initialization
     initExtra = ''
       # Git icons
-      GIT_BRANCH_ICON=""
-      GIT_STAGED_ICON=""
+      GIT_BRANCH_ICON=""
+      GIT_STAGED_ICON=""
       GIT_UNSTAGED_ICON="✚"
       GIT_UNTRACKED_ICON="…"
-      GIT_AHEAD_ICON=""
-      GIT_BEHIND_ICON=""
-      GIT_CLEAN_ICON=""
+      GIT_AHEAD_ICON=""
+      GIT_BEHIND_ICON=""
+      GIT_CLEAN_ICON=""
 
       # Simple git prompt function
       git_prompt() {
