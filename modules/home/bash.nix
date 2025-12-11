@@ -24,31 +24,26 @@
       gl = "git log --oneline --graph --decorate";
       gd = "git diff";
       
-      # NixOS specific
-      hms = "(cd ~/.dotfiles && ./apply-user.sh)";
-      nrs = "(cd ~/.dotfiles && ./apply-system.sh)";
     };
     
     # Bash initialization
     initExtra = ''
       # Git prompt function
-      GIT_BRANCH_ICON=""
-      GIT_STAGED_ICON=""
+      GIT_BRANCH_ICON=""
+      GIT_STAGED_ICON=""
       GIT_UNSTAGED_ICON="✚"
       GIT_UNTRACKED_ICON="…"
-      GIT_AHEAD_ICON=""
-      GIT_BEHIND_ICON=""
-      GIT_CLEAN_ICON=""
-
+      GIT_AHEAD_ICON=""
+      GIT_BEHIND_ICON=""
+      GIT_CLEAN_ICON=""
+      
       git_prompt() {
         if git rev-parse --is-inside-work-tree &>/dev/null; then
           local branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
           local staged="" unstaged="" untracked="" ahead="" behind=""
-
           [[ -n $(git diff --cached --quiet 2>/dev/null || echo x) ]] && staged=$GIT_STAGED_ICON
           [[ -n $(git diff --quiet 2>/dev/null || echo x) ]] && unstaged=$GIT_UNSTAGED_ICON
           [[ -n $(git ls-files --others --exclude-standard 2>/dev/null) ]] && untracked=$GIT_UNTRACKED_ICON
-
           local upstream=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)
           if [[ -n $upstream ]]; then
             local counts=$(git rev-list --left-right --count $upstream...HEAD 2>/dev/null)
@@ -57,25 +52,29 @@
             [[ $ahead_count -gt 0 ]] && ahead="$GIT_AHEAD_ICON$ahead_count"
             [[ $behind_count -gt 0 ]] && behind="$GIT_BEHIND_ICON$behind_count"
           fi
-
           local clean=""
           if [[ -z $staged && -z $unstaged && -z $untracked ]]; then
             clean=$GIT_CLEAN_ICON
           fi
-
-          # Inline ANSI colors:
-          # Yellow: branch, green: staged, red: unstaged, cyan: untracked, magenta: ahead/behind, green: clean
-          echo -e "\e[33m$GIT_BRANCH_ICON$branch\e[0m "\
-      "$( [[ -n $staged ]] && echo -e '\e[32m'$staged'\e[0m' )"\
-      "$( [[ -n $unstaged ]] && echo -e '\e[31m'$unstaged'\e[0m' )"\
-      "$( [[ -n $untracked ]] && echo -e '\e[31m'$untracked'\e[0m' )"\
-      "$( [[ -n $ahead$behind ]] && echo -e '\e[31m'$ahead$behind'\e[0m' )"\
-      "$( [[ -n $clean ]] && echo -e '\e[33m'$clean'\e[0m' )"
+          
+          # FIXED: Wrap all ANSI codes in \[ \] for proper bash prompt calculation
+          local output=""
+          output+="\[\e[33m\]$GIT_BRANCH_ICON$branch\[\e[0m\] "
+          [[ -n $staged ]] && output+="\[\e[32m\]$staged\[\e[0m\]"
+          [[ -n $unstaged ]] && output+="\[\e[31m\]$unstaged\[\e[0m\]"
+          [[ -n $untracked ]] && output+="\[\e[31m\]$untracked\[\e[0m\]"
+          [[ -n $ahead$behind ]] && output+="\[\e[31m\]$ahead$behind\[\e[0m\]"
+          [[ -n $clean ]] && output+="\[\e[33m\]$clean\[\e[0m\]"
+          
+          echo -n "$output"
         fi
       }
-
-      # PS1 with Git info before user@host
-      export PS1='$(git_prompt) \e[32m\u@\h\e[0m:\e[37m\w\e[0m \$ '
+      
+      # PS1 with Git info - ALL color codes wrapped in \[ \]
+      export PS1='$(git_prompt)\[\e[32m\]\u@\h\[\e[0m\]:\[\e[37m\]\w\[\e[0m\] \$ '
+      
+      # Update terminal title and history
+      PROMPT_COMMAND='history -a; history -n'
       
       # History settings
       export HISTSIZE=10000
