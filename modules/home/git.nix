@@ -2,20 +2,19 @@
   programs.git = {
     enable = true;
 
-    userName = "PatHarrison";
-    userEmail = "patrickgharrison@outlook.com";
-
-    extraConfig = {
+    settings = {
+      user.name = "PatHarrison";
+      user.email = "patrickgharrison@outlook.com";
       guthub.user = "PatHarrison";
 
-    init.defaultBranch = "master";
+      init.defaultBranch = "master";
 
-    pull.rebase = false;
-    core.editor = "nvim";
+      pull.rebase = false;
+      core.editor = "nvim";
 
-    color.vi = true;
+      color.vi = true;
 
-    credential.helper = "store";
+      credential.helper = "store";
     };
   };
   
