@@ -1,11 +1,15 @@
 { config, pkgs, lib, ... }:
 
+let
+  secrets = import ./secrets.nix;
+in
 {
   programs.hyprland.enable = true;
 
   # System Packages
   environment.systemPackages = with pkgs; [
     git
+    git-crypt
     wget
     curl
     unzip
@@ -22,6 +26,7 @@
     # Utils
     brightnessctl
     pavucontrol
+    openrgb
 
     # Dev
     python314
@@ -49,6 +54,8 @@
 
     xfce.thunar
     thunderbird
+
+    factorio
   ];
   
   fonts.packages = with pkgs.nerd-fonts; [
@@ -56,6 +63,13 @@
     jetbrains-mono
     hack
   ];
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    factorio = pkgs.factorio.override {
+      username = secrets.factorioUsername;
+      token = secrets.factorioToken;
+    };
+  };
 
   # Bluetooth
   hardware.bluetooth.enable = true;
