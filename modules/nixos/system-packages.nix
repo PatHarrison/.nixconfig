@@ -26,7 +26,7 @@ in
     # Utils
     brightnessctl
     pavucontrol
-    openrgb
+    openrgb-with-all-plugins
 
     # Dev
     python314

@@ -50,7 +50,7 @@ in
           popups = true;
           noise = 0.0;
           contrast = 1.0;
-          brightness = 1.0;
+          brightness = 1.5;
         };
       };
 

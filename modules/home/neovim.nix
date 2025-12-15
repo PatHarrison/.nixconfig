@@ -22,6 +22,8 @@
 
       vimtex
 
+      vim-fugitive
+
       # File explorer
       nerdtree
       nerdtree-git-plugin
