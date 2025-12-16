@@ -47,7 +47,7 @@ in
           passes = 1;
           ignore_opacity = false;
           new_optimizations = true;
-          popups = true;
+          popups = false;
           noise = 0.0;
           contrast = 1.0;
           brightness = 1.5;
@@ -60,6 +60,7 @@ in
 
       exec-once = [
         "waybar"
+        "ollama serve"
       ];
 
       windowrulev2 = [

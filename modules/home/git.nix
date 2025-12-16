@@ -5,14 +5,14 @@
     settings = {
       user.name = "PatHarrison";
       user.email = "patrickgharrison@outlook.com";
-      guthub.user = "PatHarrison";
+      github.user = "PatHarrison";
 
       init.defaultBranch = "master";
 
       pull.rebase = false;
       core.editor = "nvim";
 
-      color.vi = true;
+      color.ui = true;
 
       credential.helper = "store";
     };

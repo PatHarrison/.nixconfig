@@ -16,6 +16,13 @@ in
     zip
     btop
     tree
+    lshw
+    inxi
+    fd
+    nmap
+    mtr
+    gvfs
+
 
     # Encryption
     gnupg
@@ -27,6 +34,9 @@ in
     brightnessctl
     pavucontrol
     openrgb-with-all-plugins
+    usbutils
+    pciutils
+    networkmanagerapplet
 
     # Dev
     python314
@@ -37,13 +47,22 @@ in
     grim
     slurp
 
-    networkmanagerapplet
+    libsForQt5.qt5.qtwayland
+    qt6.qtwayland
+
 
     # Apps
     kitty
     pgadmin4-desktopmode
 
-    qgis
+    (qgis.override {
+      extraPythonPackages = ps:
+        with ps; [
+          numpy
+          geopandas
+          rasterio
+        ];
+    })
     grass
     libreoffice-qt
     zathura
@@ -53,7 +72,10 @@ in
     obs-studio
 
     xfce.thunar
+    ranger
     thunderbird
+
+    ollama-cuda
 
     factorio
   ];

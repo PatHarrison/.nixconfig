@@ -23,6 +23,9 @@
       gp = "git push";
       gl = "git log --oneline --graph --decorate";
       gd = "git diff";
+
+      rbs = "bash ~/.nixconfig/apply.sh";
+      rbc = "bash ~/.nixconfig/clean.sh";
       
     };
     
