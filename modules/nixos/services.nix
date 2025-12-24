@@ -4,12 +4,21 @@
   services.resolved.enable = true;
   services.udisks2.enable = true;
   services.openssh.enable = true;
-  services.printing.enable = true;
   services.libinput.enable = true;
   services.dbus.enable = true;
 
+  services.printing.enable = true;
+  services.printing.drivers = [ pkgs.gutenprint pkgs.hplip ];
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
   #TODO: Figure out if this is needed
   services.thermald.enable = true;
+
+  services.xserver.displayManager.sessionCommands = "${pkgs.numlockx}/bin/numlockx on";
 
   services.hardware.openrgb = {
     enable = true;

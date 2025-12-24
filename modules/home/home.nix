@@ -41,6 +41,9 @@
     neofetch 
     obsidian
     poetry
+
+    hyprshot
+    playerctl
   ];
 
   home.sessionVariables = {

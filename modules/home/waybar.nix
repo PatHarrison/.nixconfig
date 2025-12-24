@@ -14,9 +14,9 @@ in
         height = 28;
         spacing = 4;
 
-        modules-left = [ "hyprland/workspaces" "hyprland/window" ];
+        modules-left = [ "hyprland/workspaces" "hyprland/window"];
         modules-center = [ "clock" ];
-        modules-right = [ "pulseaudio" "cpu" "memory" "temperature" "battery" "network" "tray" ];
+        modules-right = [ "custom/media" "pulseaudio" "cpu" "memory" "temperature" "battery" "network" "tray" ];
 
         "hyprland/workspaces" = {
           disable-scroll = true;
@@ -58,6 +58,34 @@ in
               today = "<span color='#${colors.base08}'><b><u>{}</u></b></span>";
             };
           };
+        };
+
+        "custom/media" = {
+          format = "{icon} {text}";
+          return-type = "json";
+          max-length = 40;
+          format-icons = {
+            spotify = "";
+            default = "🎵";
+          };
+          escape = true;
+          exec = pkgs.writeShellScript "mediaplayer" ''
+            player_status=$(${pkgs.playerctl}/bin/playerctl status 2>/dev/null)
+            if [ "$player_status" = "Playing" ] || [ "$player_status" = "Paused" ]; then
+              artist=$(${pkgs.playerctl}/bin/playerctl metadata artist 2>/dev/null)
+              title=$(${pkgs.playerctl}/bin/playerctl metadata title 2>/dev/null)
+              
+              if [ -n "$artist" ] && [ -n "$title" ]; then
+                echo "{\"text\":\"$artist - $title\", \"tooltip\":\"$artist - $title\", \"class\":\"$player_status\"}"
+              fi
+            else
+              echo "{\"text\":\"\", \"tooltip\":\"No media playing\"}"
+            fi
+          '';
+          on-click = "${pkgs.playerctl}/bin/playerctl play-pause";
+          on-click-right = "${pkgs.playerctl}/bin/playerctl next";
+          on-click-middle = "${pkgs.playerctl}/bin/playerctl previous";
+          interval = 2;
         };
 
         cpu.format = "CPU {usage}%";
@@ -156,6 +184,7 @@ in
       #temperature,
       #network,
       #pulseaudio,
+      #custom-media
       #tray {
         padding: 0 10px;
         margin: 0 2px;
@@ -167,6 +196,18 @@ in
       
       #clock {
         color: @base05;
+      }
+            
+      #custom-media {
+        color: @base0E;
+      }
+      
+      #custom-media.Playing {
+        color: @base0B;
+      }
+      
+      #custom-media.Paused {
+        color: @base0A;
       }
       
       #battery {

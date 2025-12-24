@@ -37,6 +37,7 @@ in
     usbutils
     pciutils
     networkmanagerapplet
+    numlockx
 
     # Dev
     python314
