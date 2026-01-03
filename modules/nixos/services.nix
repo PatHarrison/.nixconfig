@@ -8,12 +8,15 @@
   services.dbus.enable = true;
 
   services.printing.enable = true;
-  services.printing.drivers = [ pkgs.gutenprint pkgs.hplip ];
+  services.printing.drivers = [ pkgs.gutenprint pkgs.cnijfilter2 ];
+  environment.etc."papersize".text = "letter";
   services.avahi = {
     enable = true;
     nssmdns4 = true;
     openFirewall = true;
   };
+
+  hardware.printers.ensurePrinters = [];
 
   #TODO: Figure out if this is needed
   services.thermald.enable = true;
