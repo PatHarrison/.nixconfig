@@ -39,5 +39,27 @@
         stylix.nixosModules.stylix
       ];
     };
+
+    nixosConfigurations.odin-steam = nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = { inherit inputs; };
+
+      modules = [
+        ./hosts/legion7i/configuration.nix
+        ./modules/nixos/steam.nix
+
+        # Home Manager as a NixOS module
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.patrick = import ./modules/home/home.nix;
+          home-manager.backupFileExtension = "backup";
+          home-manager.extraSpecialArgs = { inherit inputs; };
+        }
+
+        stylix.nixosModules.stylix
+      ];
+    };
   };
 }
