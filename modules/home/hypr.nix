@@ -60,6 +60,7 @@ in
 
       exec-once = [
         "waybar"
+        "hyprpaper"
         "ollama serve"
       ];
 
@@ -148,6 +149,7 @@ in
       ];
     };
   };
+
 
   programs.hyprlock = lib.mkForce {
     enable = true;

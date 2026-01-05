@@ -8,7 +8,7 @@ set -euo pipefail
 
 # Location of your Nix flake root
 FLAKE_ROOT="${HOME}/.nixconfig"
-HOSTNAME=$(hostname)
+HOSTNAME=$(hostname)-steam
 
 # Make sure the flake exists
 if [ ! -f "${FLAKE_ROOT}/flake.nix" ]; then

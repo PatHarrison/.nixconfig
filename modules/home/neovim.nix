@@ -136,12 +136,10 @@
         },
       })
       pcall(require('telescope').load_extension, 'fzf')
-      
-      -- Treesitter setup
-      require('nvim-treesitter.configs').setup({
-        highlight = { enable = true },
-        indent = { enable = true },
-      })
+
+      -- tree-sitter
+      vim.treesitter.language.register('python', 'python')
+      vim.treesitter.language.register('nix', 'nix')
       
       -- LSP setup
       local capabilities = require('cmp_nvim_lsp').default_capabilities()

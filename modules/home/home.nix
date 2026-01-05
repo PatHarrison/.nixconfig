@@ -3,6 +3,7 @@
 {
   imports = [
     ./hypr.nix
+    ./hyprpaper.nix
     ./waybar.nix
     ./kitty.nix
     ./bash.nix

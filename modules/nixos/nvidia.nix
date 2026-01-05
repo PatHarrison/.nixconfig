@@ -6,10 +6,15 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = true;
+    powerManagement.enable = false;
     nvidiaPersistenced = true;
     open = false;
     package = config.boot.kernelPackages.nvidiaPackages.beta; # Use for Wayland
+  };
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
   };
 
   environment.variables = {
