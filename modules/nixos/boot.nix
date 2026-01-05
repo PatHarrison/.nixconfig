@@ -13,4 +13,10 @@
     "nvidia_drm.fbdev=1"
   ];
   boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
 }
