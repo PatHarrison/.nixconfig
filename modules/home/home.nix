@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -45,6 +45,8 @@
 
     hyprshot
     playerctl
+
+    inputs.zen-browser.packages."${pkgs.system}".default
   ];
 
   home.sessionVariables = {

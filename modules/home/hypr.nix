@@ -82,7 +82,7 @@ in
         "$mainMod, R, exec, rofi -show drun"
         "$mainMod, P, pseudo,"
         "$mainMod, S, togglesplit,"
-        "$mainMod, B, exec, firefox"
+        "$mainMod, B, exec, zen"
         "$mainMod, F, fullscreen"
         ''$mainMod, W, exec, hyprshot -m window -o ~/Pictures/screenshots -f "$(date +%Y-%m-%d_%H-%M-%S)".png''
         ''$mainMod, A, exec, hyprshot -m region -o ~/Pictures/screenshots -f "$(date +%Y-%m-%d_%H-%M-%S)".png''

@@ -12,6 +12,8 @@
     nix-colors.url = "github:misterio77/nix-colors";
 
     hyprland.url = "github:hyprwm/Hyprland";
+
+    zen-browser.url = "github:MarceColl/zen-browser-flake";
   };
 
   outputs = { self, nixpkgs, home-manager, stylix, nix-colors, hyprland, ... }@inputs:
