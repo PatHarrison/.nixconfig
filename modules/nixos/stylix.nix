@@ -8,7 +8,7 @@
 
     base16Scheme = import ../../themes/mistwood.nix;
 
-    image = ../../wallpapers/wallpaper2.jpeg;
+    # image = ../../wallpapers/wallpaper2.jpeg;
 
 
     cursor = {
