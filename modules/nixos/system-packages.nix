@@ -76,7 +76,7 @@ in
     ranger
     thunderbird
 
-    ollama-cuda
+    # ollama-cuda
 
     factorio
   ];

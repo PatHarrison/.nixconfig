@@ -61,7 +61,6 @@ in
       exec-once = [
         "swaybg -i /home/patrick/.nixconfig/wallpapers/wallpaper2.jpeg -m fill"
         "waybar"
-        "ollama serve"
       ];
 
       windowrulev2 = [
