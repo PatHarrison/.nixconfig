@@ -159,46 +159,49 @@ in
         hide_cursor = true;
         no_fade_in = false;
       };
-      input-field = [
-        {
-          size = "200, 50";
-          position = "0, 0";
-          monitor = "";
-          dots_center = true;
-          fade_on_empty = true;
-          outline_thinkness = 1;
-          color = "rgba(${colors.base01}dd)";
-          outline_color = "rgba(${colors.base0D}ff)";
-          inner_color = "rgba(${colors.base00}cc)";
-          font_color = "rgba(${colors.base06}ff)";
-          placeholder_text = ''<span foreground="rgba(${colors.base05}ff)">Password...</span>'';
-        }
-      ];
+      
       background = [
         {
           path = "screenshot";
           blur_passes = 3;
-          blur_size = 3;
+          blur_size = 8;
         }
-      ]; 
+      ];
+      
+      input-field = [
+        {
+          size = "200, 50";
+          position = "0, -20";
+          monitor = "";
+          dots_center = true;
+          fade_on_empty = false;
+          font_color = "rgb(${colors.base06})";
+          inner_color = "rgb(${colors.base00})";
+          outer_color = "rgb(${colors.base0D})";
+          outline_thickness = 3;
+          placeholder_text = "<span foreground='##${colors.base05}'>Password...</span>";
+          shadow_passes = 2;
+        }
+      ];
+      
       label = [
         {
           monitor = "";
           text = "cmd[update:1000] echo \"<b><big> $(date +\"%H:%M\") </big></b>\"";
-          color = "rgba(${colors.base06}ff)";
+          color = "rgb(${colors.base06})";
           font_size = 64;
           font_family = "FiraCode Nerd Font";
-          position = "0, 128";
+          position = "0, 80";
           halign = "center";
           valign = "center";
         }
         {
           monitor = "";
           text = "cmd[update:18000000] echo \"<b> $(date +'%A, %-d %B %Y') </b>\"";
-          color = "rgba(${colors.base06}ff)";
+          color = "rgb(${colors.base06})";
           font_size = 24;
           font_family = "FiraCode Nerd Font";
-          position = "0, 64";
+          position = "0, 40";
           halign = "center";
           valign = "center";
         }
@@ -211,27 +214,29 @@ in
 
     settings = {
       general = {
-        lock_cmd = "hyprlock";
-        before_sleep_cmd = "hyprlock";
+        lock_cmd = "pidof hyprlock || hyprlock";
+        before_sleep_cmd = "loginctl lock-session";
       };
 
       listener = [
         {
-          # dim display
           timeout = 150;
-          on-timeout = "brightnessctl -s set 10%";
+          on-timeout = "brightnessctl -s set 10";
           on-resume = "brightnessctl -r";
         }
         {
-          # lock screen
           timeout = 300;
-          on-timeout = "hyprlock";
+          on-timeout = "loginctl lock-session";
         }
-        {
-          # suspend
-          timeout = 600;
-          on-timeout = "systemctl suspend";
-        }
+        # {
+        #   timeout = 330;
+        #   on-timeout = "hyprctl dispatch dpms off";
+        #   on-resume = "hyprctl dispatch dpms on";
+        # }
+        # {
+        #   timeout = 600;
+        #   on-timeout = "systemctl suspend";
+        # }
       ];
     };
   };

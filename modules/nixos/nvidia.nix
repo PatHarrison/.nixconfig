@@ -7,10 +7,21 @@
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = false;
+    powerManagement.finegrained = false;
     nvidiaPersistenced = true;
     open = false;
     package = config.boot.kernelPackages.nvidiaPackages.beta; # Use for Wayland
+
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
   };
+
 
   hardware.graphics = {
     enable = true;
