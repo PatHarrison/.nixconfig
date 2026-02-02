@@ -61,6 +61,7 @@ in
       exec-once = [
         "swaybg -i /home/patrick/.nixconfig/wallpapers/wallpaper2.jpeg -m fill"
         "waybar"
+        "sleep 2 && hyprctl dispatch dpms on"
       ];
 
       windowrulev2 = [
@@ -144,7 +145,7 @@ in
         "$mainMod CTRL, right, workspace, r+1"
         "$mainMod CTRL, left, workspace, r-1"
 
-        "$mainMod, ESCAPE, exec, swaylock -f"
+        "$mainMod, ESCAPE, exec, swaylock -f; systemctl --user hyprland-unlock"
       ];
     };
   };
@@ -172,6 +173,7 @@ in
       general = {
         lock_cmd = "pidof swaylock || swaylock -f";
         before_sleep_cmd = "loginctl lock-session";
+        after_sleep_cmd = "hyprctl dispatch dpms on";
       };
 
       listener = [

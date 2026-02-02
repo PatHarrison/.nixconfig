@@ -33,7 +33,6 @@ in
     # Utils
     brightnessctl
     pavucontrol
-    openrgb-with-all-plugins
     usbutils
     pciutils
     networkmanagerapplet

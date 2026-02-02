@@ -11,11 +11,16 @@
   boot.kernelParams = [
     "nvidia_drm.modeset=1"
     "nvidia_drm.fbdev=1"
-    "nvidia.NVreg_PreserveVideoMemoryAllocation=1"
+    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+    "nvidia.NVreg_TemporaryFilePath=/var/tmp"
     "acpi_osi=\"!Windows 2015\""
     "acpi_osi=Linux"
-    "acpi_enforce_resources=lax"  # Relaxes ACPI resource conflicts
   ];
+
+  boot.extraModprobeConfig = ''
+    options nvidia NVreg_PreserveVideoMemoryAllocations=1
+    options nvidia NVreg_TemporaryFilePath=/var/tmp
+  '';
   boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
 
   nix.gc = {
