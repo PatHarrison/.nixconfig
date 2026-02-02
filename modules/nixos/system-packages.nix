@@ -76,6 +76,8 @@ in
     ranger
     thunderbird
 
+    swaylock-effects
+
     # ollama-cuda
 
     factorio

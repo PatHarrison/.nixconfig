@@ -144,68 +144,24 @@ in
         "$mainMod CTRL, right, workspace, r+1"
         "$mainMod CTRL, left, workspace, r-1"
 
-        "$mainMod, ESCAPE, exec, hyprlock"
+        "$mainMod, ESCAPE, exec, swaylock -f"
       ];
     };
   };
 
-
-  programs.hyprlock = lib.mkForce {
+  programs.swaylock = {
     enable = true;
     settings = {
-      general = {
-        disable_loading_bar = true;
-        grace = 0;
-        hide_cursor = true;
-        no_fade_in = false;
-      };
-      
-      background = [
-        {
-          path = "screenshot";
-          blur_passes = 3;
-          blur_size = 8;
-        }
-      ];
-      
-      input-field = [
-        {
-          size = "200, 50";
-          position = "0, -20";
-          monitor = "";
-          dots_center = true;
-          fade_on_empty = false;
-          font_color = "rgb(${colors.base06})";
-          inner_color = "rgb(${colors.base00})";
-          outer_color = "rgb(${colors.base0D})";
-          outline_thickness = 3;
-          placeholder_text = "<span foreground='##${colors.base05}'>Password...</span>";
-          shadow_passes = 2;
-        }
-      ];
-      
-      label = [
-        {
-          monitor = "";
-          text = "cmd[update:1000] echo \"<b><big> $(date +\"%H:%M\") </big></b>\"";
-          color = "rgb(${colors.base06})";
-          font_size = 64;
-          font_family = "FiraCode Nerd Font";
-          position = "0, 80";
-          halign = "center";
-          valign = "center";
-        }
-        {
-          monitor = "";
-          text = "cmd[update:18000000] echo \"<b> $(date +'%A, %-d %B %Y') </b>\"";
-          color = "rgb(${colors.base06})";
-          font_size = 24;
-          font_family = "FiraCode Nerd Font";
-          position = "0, 40";
-          halign = "center";
-          valign = "center";
-        }
-      ];
+      color = "${colors.base00}";
+      font-size = 24;
+      indicator-idle-visible = false;
+      indicator-radius = 100;
+      line-color = "${colors.base00}";
+      show-failed-attempts = true;
+      inside-color = "${colors.base01}";
+      key-hl-color = "${colors.base0B}";
+      ring-color = "${colors.base02}";
+      text-color = "${colors.base05}";
     };
   };
 
@@ -214,33 +170,26 @@ in
 
     settings = {
       general = {
-        lock_cmd = "pidof hyprlock || hyprlock";
+        lock_cmd = "pidof swaylock || swaylock -f";
+        before_sleep_cmd = "loginctl lock-session";
       };
 
       listener = [
         {
-          # dim display
           timeout = 150;
           on-timeout = "brightnessctl -s set 10%";
           on-resume = "brightnessctl -r";
         }
         {
-          # turn off screen
           timeout = 300;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
-        }
-        {
-          # lock screen
-          timeout = 310;
           on-timeout = "loginctl lock-session";
         }
         {
-          # suspend
           timeout = 600;
           on-timeout = "systemctl suspend";
         }
       ];
     };
   };
+
 }
