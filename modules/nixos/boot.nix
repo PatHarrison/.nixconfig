@@ -11,8 +11,10 @@
   boot.kernelParams = [
     "nvidia_drm.modeset=1"
     "nvidia_drm.fbdev=1"
+    "nvidia.NVreg_PreserveVideoMemoryAllocation=1"
+    "acpi_osi=\"!Windows 2015\""
     "acpi_osi=Linux"
-    "acpi_backlight=native"
+    "acpi_enforce_resources=lax"  # Relaxes ACPI resource conflicts
   ];
   boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
 
