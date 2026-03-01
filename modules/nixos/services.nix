@@ -48,6 +48,11 @@
     wantedBy = [ "default.target" ];
   };
 
+  systemd.services.ollama = {
+    after = [ "network.target" ];
+    wants = [ "network.target" ];
+  };
+
   services.greetd = {
     enable = true;
     settings = {
@@ -64,6 +69,11 @@
         user = "greeter";
       };
     };
+  };
+
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cuda;
   };
 
   programs.thunar.plugins = with pkgs.xfce; [

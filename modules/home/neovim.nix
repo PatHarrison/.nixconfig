@@ -20,6 +20,16 @@
         };
       })
 
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "ollama.nvim";
+        src = pkgs.fetchFromGitHub {
+          owner = "nomnivore";
+          repo = "ollama.nvim";
+          rev = "main";
+          sha256 = "sha256-8tW5tp2GiYw+PnR7rqiKfykLW/yqvGOtqauZCgEeQCg=";
+        };
+      })
+
       vimtex
 
       vim-fugitive
@@ -74,184 +84,20 @@
       # Indent guides
       # indent-blankline-nvim
     ];
-    
-    extraLuaConfig = ''
-      -- Set leader key
-      vim.g.mapleader = ' '
-      vim.g.maplocalleader = ' '
-      
-      -- Basic settings
-      vim.opt.number = true
-      vim.opt.relativenumber = true
-      vim.opt.mouse = 'a'
-      vim.opt.ignorecase = true
-      vim.opt.smartcase = true
-      vim.opt.hlsearch = false
-      vim.opt.wrap = false
-      vim.opt.breakindent = true
-      vim.opt.tabstop = 2
-      vim.opt.shiftwidth = 2
-      vim.opt.expandtab = true
-      vim.opt.termguicolors = true
-      vim.opt.signcolumn = 'yes'
-      vim.opt.updatetime = 250
-      vim.opt.timeoutlen = 300
-      vim.opt.completeopt = 'menuone,noselect'
-      vim.opt.scrolloff = 8
-      vim.opt.clipboard = 'unnamedplus'
+  };
 
-      -- VimTeX basic configs
-      vim.cmd("let g:vimtex_view_method = 'zathura'")
-      vim.g.vimtex_compiler_latexmk = {
-        backend = 'nvim',
-        options = {
-          '-pdf',
-          '-interaction=nonstopmode',
-          '-synctex=1',
-          '-shell-escape',
-          '-output-directory=output',
-          '-aux-directory=output',
-        }
-      }
 
-      -- NERDTree setup
-      vim.g.NERDTreeShowHidden = 1
-      vim.g.NERDTreeMinimalUI = 1
-      
-      -- Telescope setup
-      require('telescope').setup({
-        defaults = {
-          mappings = {
-            i = {
-              ['<C-j>'] = require("telescope.actions").move_selection_next,
-              ['<C-k>'] = require("telescope.actions").move_selection_previous,
-              ['<C-[>'] = require("telescope.actions").close,
-
-	          },
-            n = {
-              ['<C-j>'] = require("telescope.actions").move_selection_next,
-              ['<C-k>'] = require("telescope.actions").move_selection_previous,
-            },
-          },
-        },
-      })
-      pcall(require('telescope').load_extension, 'fzf')
-
-      -- tree-sitter
-      vim.treesitter.language.register('python', 'python')
-      vim.treesitter.language.register('nix', 'nix')
-      
-      -- LSP setup
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-      local servers = { 'nil_ls', 'pyright', 'rust_analyzer', 'ts_ls' }
-      for _, lsp in ipairs(servers) do
-        vim.lsp.enable(lsp, {
-          capabilities = capabilities,
-        })
-      end
-      
-      -- Completion setup
-      local cmp = require('cmp')
-      local luasnip = require('luasnip')
-      
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<CR>'] = cmp.mapping.confirm({ select = true }),
-          ['<Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end, { 'i', 's' }),
-        }),
-        sources = {
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-          { name = 'buffer' },
-          { name = 'path' },
-        },
-      })
-      
-      -- Gitsigns setup
-      require('gitsigns').setup()
-      
-      -- Lualine setup
-      require('lualine').setup({
-        options = {
-          theme = 'gruvbox',
-        },
-      })
-      
-      -- Autopairs setup
-      require('nvim-autopairs').setup()
-      
-      -- Comment setup
-      require('Comment').setup()
-      
-      -- Key mappings
-      local keymap = vim.keymap.set
-      
-      -- File explorer
-      keymap('n', '<leader>t', ':NERDTreeToggle<CR>', { desc = 'Toggle file explorer' })
-      
-      -- Telescope
-      keymap('n', '<leader>f', require('telescope.builtin').find_files, { desc = 'Find files' })
-      keymap('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = 'Live grep' })
-      keymap('n', '<leader>fb', require('telescope.builtin').buffers, { desc = 'Find buffers' })
-      keymap('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = 'Help tags' })
-      
-      -- LSP
-      keymap('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
-      keymap('n', 'K', vim.lsp.buf.hover, { desc = 'Hover documentation' })
-      keymap('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename' })
-      keymap('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code action' })
-      
-      -- Buffer navigation
-      keymap('n', '<leader>bn', ':bnext<CR>', { desc = 'Next buffer' })
-      keymap('n', '<leader>bp', ':bprevious<CR>', { desc = 'Previous buffer' })
-      keymap('n', '<leader>bd', ':bdelete<CR>', { desc = 'Delete buffer' })
-      
-      -- Window navigation
-      keymap('n', '<C-h>', '<C-w>h', { desc = 'Move to left window' })
-      keymap('n', '<C-j>', '<C-w>j', { desc = 'Move to bottom window' })
-      keymap('n', '<C-k>', '<C-w>k', { desc = 'Move to top window' })
-      keymap('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
-      
-      -- Better indenting
-      keymap('v', '<', '<gv')
-      keymap('v', '>', '>gv')
-      
-      -- Clear search highlighting
-      keymap('n', '<Esc>', ':nohlsearch<CR>')
-      
-      -- Theme
-      vim.cmd([[colorscheme mistwood]])
-    '';
-    
-    extraPackages = with pkgs; [
-      # Language servers
-      nil              # Nix
-      pyright          # Python
-      rust-analyzer    # Rust
-      nodePackages.typescript-language-server  # TypeScript/JavaScript
-      lua-language-server
-
-      # Additional tools
-      ripgrep          # For telescope grep
-      fd               # For telescope find
-      tree-sitter
-    ];
+  # Create the nvim config directory structure
+  xdg.configFile = {
+	"nvim/config/init.lua".source = ./nvim/config/init.lua;
+	"nvim/config/options.lua".source = ./nvim/config/options.lua;
+	"nvim/config/keymaps.lua".source = ./nvim/config/keymaps.lua;
+	"nvim/config/plugins/telescope.lua".source = ./nvim/config/plugins/telescope.lua;
+	"nvim/config/plugins/lsp.lua".source = ./nvim/config/plugins/lsp.lua;
+	"nvim/config/plugins/completion.lua".source = ./nvim/config/plugins/completion.lua;
+	"nvim/config/plugins/treesitter.lua".source = ./nvim/config/plugins/treesitter.lua;
+	"nvim/config/plugins/ui.lua".source = ./nvim/config/plugins/ui.lua;
+	"nvim/config/plugins/ollama.lua".source = ./nvim/config/plugins/ollama.lua;
   };
 }
+    

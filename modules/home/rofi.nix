@@ -1,10 +1,8 @@
 { config, pkgs, lib, ... }:
-
 {
   programs.rofi = {
     enable = true;
     package = pkgs.rofi;
-
     extraConfig = {
       modi = "drun,run,window";
       show-icons = false;
@@ -17,7 +15,5 @@
       sidebar-mode = true;
     };
   };
-
   home.sessionVariables.ROFI_PLUGIN_PATH = "${pkgs.rofi}/lib/rofi";
 }
-

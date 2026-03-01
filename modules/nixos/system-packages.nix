@@ -64,20 +64,18 @@ in
         ];
     })
     grass
-    libreoffice-qt
+    # libreoffice-qt
     zathura
     texlive.combined.scheme-full
     inkscape
     gimp
     obs-studio
 
-    xfce.thunar
+    thunar
     ranger
     thunderbird
 
     swaylock-effects
-
-    # ollama-cuda
 
     factorio
   ];
