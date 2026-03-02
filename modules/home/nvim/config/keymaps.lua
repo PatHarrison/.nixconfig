@@ -33,6 +33,6 @@ keymap('v', '>', '>gv')
 -- Clear search highlighting
 keymap('n', '<Esc>', ':nohlsearch<CR>')
 
--- Ollama keybindings
-keymap({ 'n', 'v' }, '<leader>oo', ":<c-u>lua require('ollama').prompt()<cr>", { desc = 'Ollama prompt' })
-keymap({ 'n', 'v' }, '<leader>oG', ":<c-u>lua require('ollama').prompt('Generate_Code')<cr>", { desc = 'Ollama Generate Code' })
+-- Avante
+keymap('n', '<leader>aa', '<cmd>AvanteAsk<cr>', { desc = 'Avante Ask' })
+keymap('v', '<leader>ae', '<cmd>AvanteEdit<cr>', { desc = 'Avante Edit selection' })

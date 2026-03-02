@@ -14,6 +14,7 @@ in
     curl
     unzip
     zip
+    repgrep
     btop
     tree
     lshw

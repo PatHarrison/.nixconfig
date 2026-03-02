@@ -20,15 +20,10 @@
         };
       })
 
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "ollama.nvim";
-        src = pkgs.fetchFromGitHub {
-          owner = "nomnivore";
-          repo = "ollama.nvim";
-          rev = "main";
-          sha256 = "sha256-8tW5tp2GiYw+PnR7rqiKfykLW/yqvGOtqauZCgEeQCg=";
-        };
-      })
+      # Agentic AI
+      avante-nvim
+      nui-nvim
+      dressing-nvim
 
       vimtex
 
@@ -89,15 +84,15 @@
 
   # Create the nvim config directory structure
   xdg.configFile = {
-	"nvim/config/init.lua".source = ./nvim/config/init.lua;
-	"nvim/config/options.lua".source = ./nvim/config/options.lua;
-	"nvim/config/keymaps.lua".source = ./nvim/config/keymaps.lua;
-	"nvim/config/plugins/telescope.lua".source = ./nvim/config/plugins/telescope.lua;
-	"nvim/config/plugins/lsp.lua".source = ./nvim/config/plugins/lsp.lua;
-	"nvim/config/plugins/completion.lua".source = ./nvim/config/plugins/completion.lua;
-	"nvim/config/plugins/treesitter.lua".source = ./nvim/config/plugins/treesitter.lua;
-	"nvim/config/plugins/ui.lua".source = ./nvim/config/plugins/ui.lua;
-	"nvim/config/plugins/ollama.lua".source = ./nvim/config/plugins/ollama.lua;
+    "nvim/init.lua".source = ./nvim/config/init.lua;
+    "nvim/lua/options.lua".source = ./nvim/config/options.lua;
+    "nvim/lua/keymaps.lua".source = ./nvim/config/keymaps.lua;
+    "nvim/lua/plugins/telescope.lua".source = ./nvim/config/plugins/telescope.lua;
+    "nvim/lua/plugins/lsp.lua".source = ./nvim/config/plugins/lsp.lua;
+    "nvim/lua/plugins/completion.lua".source = ./nvim/config/plugins/completion.lua;
+    "nvim/lua/plugins/treesitter.lua".source = ./nvim/config/plugins/treesitter.lua;
+    "nvim/lua/plugins/ui.lua".source = ./nvim/config/plugins/ui.lua;
+    "nvim/lua/plugins/avante.lua".source = ./nvim/config/plugins/avante.lua;
   };
 }
     

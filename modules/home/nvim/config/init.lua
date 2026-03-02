@@ -1,12 +1,11 @@
--- Main config entry point
-require('config.options')
-require('config.plugins.telescope')
-require('config.plugins.lsp')
-require('config.plugins.completion')
-require('config.plugins.treesitter')
-require('config.plugins.ui')
-require('config.plugins.ollama')
-require('config.keymaps')
+-- modules/home/nvim/config/init.lua
+require('options')
+require('plugins.telescope')
+require('plugins.lsp')
+require('plugins.completion')
+require('plugins.treesitter')
+require('plugins.ui')
+require('plugins.avante')
+require('keymaps')
 
--- Theme
 vim.cmd([[colorscheme mistwood]])

@@ -1,5 +1,5 @@
 require('ollama').setup({
-  model = "llama3.2",
+  model = "mistral",
   url = "http://127.0.0.1:11434",
   serve = {
     on_start = false,
@@ -12,7 +12,7 @@ require('ollama').setup({
     Sample_Prompt = {
       prompt = "This is a sample prompt that receives $input and $sel(ection).",
       input_label = "> ",
-      model = "llama3.2",
+      model = "mistral",
       action = "display",
     }
   }
