@@ -48,10 +48,21 @@
     wantedBy = [ "default.target" ];
   };
 
-  systemd.services.ollama = {
-    after = [ "network.target" ];
-    wants = [ "network.target" ];
-  };
+  services.tumbler.enable = true;
+
+  # systemd.services.ollama = {
+  #   after = [ "network.target" ];
+  #   wants = [ "network.target" ];
+  # };
+
+  # services.open-webui = {
+  #   enable = true;
+  #   port = 8082;
+  #   environment = {
+  #     OLLAMA_BASE_URL = "http://127.0.0.1:11434";
+  #     WEBUI_AUTH = "false";
+  #   };
+  # };
 
   services.greetd = {
     enable = true;
@@ -71,10 +82,10 @@
     };
   };
 
-  services.ollama = {
-    enable = true;
-    package = pkgs.ollama-cuda;
-  };
+  # services.ollama = {
+  #   enable = true;
+  #   package = pkgs.ollama-cuda;
+  # };
 
   programs.thunar.plugins = with pkgs.xfce; [
     thunar-volman

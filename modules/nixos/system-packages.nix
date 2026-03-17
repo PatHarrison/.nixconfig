@@ -14,7 +14,7 @@ in
     curl
     unzip
     zip
-    repgrep
+    ripgrep
     btop
     tree
     lshw
@@ -75,10 +75,19 @@ in
     thunar
     ranger
     thunderbird
+    tumbler
+    ffmpegthumbnailer
+    gnome-epub-thumbnailer
 
     swaylock-effects
 
     factorio
+
+    # open-webui
+  ];
+
+  environment.pathsToLink = [
+    "share/thumbnailers"
   ];
   
   fonts.packages = with pkgs.nerd-fonts; [

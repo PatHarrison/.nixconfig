@@ -46,7 +46,8 @@ When suggesting code:
       normal = "<CR>",
       insert = "<C-s>",
     },
-    clear = "<leader>ac"
+    clear = "<leader>ac",
+  },
   windows = {
     position = "right",
     wrap = true,

@@ -16,6 +16,7 @@
     ./rofi.nix
     ./dunst.nix
     ./git.nix
+    ./tmux.nix
   ];
 
   home.stateVersion = "25.05";
@@ -40,7 +41,7 @@
   };
 
   home.packages = with pkgs; [
-    neofetch 
+    fastfetch 
     obsidian
     poetry
 

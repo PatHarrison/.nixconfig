@@ -21,9 +21,9 @@
       })
 
       # Agentic AI
-      avante-nvim
-      nui-nvim
-      dressing-nvim
+      # avante-nvim
+      # nui-nvim
+      # dressing-nvim
 
       vimtex
 
@@ -92,7 +92,7 @@
     "nvim/lua/plugins/completion.lua".source = ./nvim/config/plugins/completion.lua;
     "nvim/lua/plugins/treesitter.lua".source = ./nvim/config/plugins/treesitter.lua;
     "nvim/lua/plugins/ui.lua".source = ./nvim/config/plugins/ui.lua;
-    "nvim/lua/plugins/avante.lua".source = ./nvim/config/plugins/avante.lua;
+    # "nvim/lua/plugins/avante.lua".source = ./nvim/config/plugins/avante.lua;
   };
 }
     

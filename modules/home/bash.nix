@@ -24,6 +24,9 @@
       gl = "git log --oneline --graph --decorate";
       gd = "git diff";
 
+      #tmux
+      t = "tmux new-session -A -s main";
+
       rbs = "bash ~/.nixconfig/apply.sh";
       rbc = "bash ~/.nixconfig/clean.sh";
       
