@@ -77,7 +77,8 @@ in
     thunderbird
     tumbler
     ffmpegthumbnailer
-    gnome-epub-thumbnailer
+    foliate
+    xarchiver
 
     swaylock-effects
 
