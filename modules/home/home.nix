@@ -17,6 +17,7 @@
     ./dunst.nix
     ./git.nix
     ./tmux.nix
+    ./xdg.nix
   ];
 
   home.stateVersion = "25.05";
@@ -54,4 +55,15 @@
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = "1";
   };
+
+  xdg.configFile."feh/keys".text = ''
+    zoom_in        plus
+    zoom_out       minus
+    zoom_fit       f
+    zoom_fill      F
+    next_img       l
+    prev_img       h
+    quit           q
+    toggle_fullscreen Return
+  '';
 }
