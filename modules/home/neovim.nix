@@ -20,11 +20,6 @@
         };
       })
 
-      # Agentic AI
-      # avante-nvim
-      # nui-nvim
-      # dressing-nvim
-
       vimtex
 
       vim-fugitive

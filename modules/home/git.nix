@@ -10,11 +10,11 @@
       init.defaultBranch = "master";
 
       pull.rebase = false;
+      push.autoSetupRemote = true;
       core.editor = "nvim";
-
       color.ui = true;
-
       credential.helper = "store";
+      diff.tool = "vimdiff";
     };
   };
   
