@@ -13,5 +13,6 @@
     firefox.profileNames = [ "default" ];
     neovim.enable = false;
     swaylock.enable = false;
+    rofi.enable = false;
   };
 }

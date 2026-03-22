@@ -54,15 +54,17 @@
     enable = true;
     settings = {
       default_session = {
-        command = lib.mkDefault ''
-          ${pkgs.tuigreet}/bin/tuigreet \
-          --time \
-          --cmd 'hyprland' \
-          --user-menu \
-          --user-menu-min-uid 1000 \
-          --remember \
-          --remember-session
-        '';
+       command = lib.mkDefault ''
+        ${pkgs.tuigreet}/bin/tuigreet \
+        --time \
+        --time-format "%H:%M — %A, %B %d" \
+        --cmd 'hyprland' \
+        --user-menu \
+        --user-menu-min-uid 1000 \
+        --remember \
+        --remember-session \
+        --theme "border=magenta;text=yellow;prompt=green;time=green;action=blue;button=yellow;container=black;input=white"
+      '';
         user = "greeter";
       };
     };

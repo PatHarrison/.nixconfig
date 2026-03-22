@@ -145,24 +145,63 @@ in
         "$mainMod CTRL, right, workspace, r+1"
         "$mainMod CTRL, left, workspace, r-1"
 
-        "$mainMod, ESCAPE, exec, swaylock -f; systemctl --user hyprland-unlock"
+        "$mainMod, ESCAPE, exec, swaylock -f; systemctl --user start hyprland-unlock"
       ];
     };
   };
 
   programs.swaylock = {
     enable = true;
+    package = pkgs.swaylock-effects;
     settings = {
-      color = "${colors.base00}";
-      font-size = 24;
+      image = "/home/patrick/.nixconfig/wallpapers/wallpaper2.jpeg";
+      scaling = "fill";
+
+      # Blur + vignette
+      effect-blur = "8x4";
+      effect-vignette = "0.1:0.8";
+
+      # Clock
+      clock = true;
+      timestr = "%H:%M";
+      datestr = "%A, %B %d";
+
+      # Layout
+      indicator = true;
+      indicator-radius = 90;
+      indicator-thickness = 8;
       indicator-idle-visible = false;
-      indicator-radius = 100;
-      line-color = "${colors.base00}";
-      show-failed-attempts = true;
-      inside-color = "${colors.base01}";
-      key-hl-color = "${colors.base0B}";
-      ring-color = "${colors.base02}";
-      text-color = "${colors.base05}";
+
+      # Colors — all using Mistwood palette
+      inside-color          = "${colors.base00}cc";
+      inside-clear-color    = "${colors.base00}cc";
+      inside-ver-color      = "${colors.base0D}44";
+      inside-wrong-color    = "${colors.base08}44";
+
+      ring-color            = "${colors.base02}";
+      ring-clear-color      = "${colors.base0B}";
+      ring-ver-color        = "${colors.base0D}";
+      ring-wrong-color      = "${colors.base08}";
+
+      line-color            = "00000000";
+      line-clear-color      = "00000000";
+      line-ver-color        = "00000000";
+      line-wrong-color      = "00000000";
+
+      key-hl-color          = "${colors.base0B}";
+      bs-hl-color           = "${colors.base08}";
+      caps-lock-key-hl-color   = "${colors.base0A}";
+      caps-lock-bs-hl-color    = "${colors.base09}";
+
+      text-color            = "${colors.base05}";
+      text-clear-color      = "${colors.base0B}";
+      text-ver-color        = "${colors.base0D}";
+      text-wrong-color      = "${colors.base08}";
+
+      separator-color       = "00000000";
+
+      font = "JetBrains Nerd Font";
+      font-size = 20;
     };
   };
 

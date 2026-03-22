@@ -16,7 +16,7 @@ in
 
         modules-left = [ "hyprland/workspaces" "hyprland/window"];
         modules-center = [ "clock" ];
-        modules-right = [ "custom/media" "pulseaudio" "cpu" "memory" "temperature" "battery" "network" "tray" ];
+        modules-right = [ "custom/media" "custom/gpu" "disk" "pulseaudio" "cpu" "memory" "temperature" "battery" "network" "tray" ];
 
         "hyprland/workspaces" = {
           disable-scroll = true;
@@ -58,6 +58,17 @@ in
               today = "<span color='#${colors.base08}'><b><u>{}</u></b></span>";
             };
           };
+        };
+        "custom/gpu" = {
+          exec = "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits | awk '{print \"GPU \" $1 \"%\"}'";
+          interval = 3;
+          format = "{}";
+        };
+
+        disk = {
+          format = "󰋊 {percentage_used}%";
+          path = "/";
+          interval = 30;
         };
 
         "custom/media" = {
@@ -144,39 +155,60 @@ in
         border: none;
         border-radius: 0;
         font-family: "JetBrains Nerd Font";
-        font-size: 13px;
+        font-size: 12px;
         min-height: 0;
       }
-      
+
       window#waybar {
-        background: alpha(@base00, 0.7);
+        background: alpha(@base00, 0.85);
+        border-bottom: 1px solid alpha(@base02, 0.5);
         color: @base05;
       }
-      
+
+      /* ── Workspaces ──────────────────────────────── */
+      #workspaces {
+        margin: 0 4px;
+        padding: 0;
+      }
+
       #workspaces button {
-        padding: 0 10px;
-        color: @base05;
+        padding: 0 8px;
+        color: @base04;
         background: transparent;
-        border-bottom: 3px solid transparent;
-        transition: all 0.3s ease;
+        border-bottom: 2px solid transparent;
+        transition: all 0.2s ease;
+        min-width: 24px;
       }
-      
+
       #workspaces button.active {
-        background: alpha(@base01, 0.5);
-        border-bottom: 3px solid @base05;
+        color: @base05;
+        border-bottom: 2px solid @base0B;
       }
-      
+
+      #workspaces button.occupied {
+        color: @base05;
+        border-bottom: 2px solid @base03;
+      }
+
       #workspaces button:hover {
         background: alpha(@base01, 0.6);
-        border-bottom: 3px solid @base0B;
-      }
-      
-      #window {
-        margin: 0 10px;
         color: @base06;
-        background: transparent;
+        border-bottom: 2px solid @base0D;
       }
-      
+
+      #workspaces button.urgent {
+        color: @base08;
+        border-bottom: 2px solid @base08;
+      }
+
+      /* ── Window title ────────────────────────────── */
+      #window {
+        margin: 0 8px;
+        color: @base04;
+        font-style: italic;
+      }
+
+      /* ── Shared module pill style ────────────────── */
       #clock,
       #battery,
       #cpu,
@@ -184,88 +216,132 @@ in
       #temperature,
       #network,
       #pulseaudio,
-      #custom-media
+      #custom-media,
+      #custom-gpu,
+      #disk,
       #tray {
-        padding: 0 10px;
-        margin: 0 2px;
-        background: alpha(@base01, 0.5);
-        color: @base05;
-        border-radius: 5px;
-        transition: all 0.3s ease;
+        padding: 2px 10px;
+        margin: 3px 2px;
+        background: alpha(@base01, 0.6);
+        border: 1px solid alpha(@base02, 0.4);
+        border-radius: 6px;
+        transition: background 0.2s ease;
       }
-      
+
+      /* ── Clock ───────────────────────────────────── */
       #clock {
         color: @base05;
+        font-weight: bold;
+        letter-spacing: 0.5px;
       }
-            
+
+      /* ── Media ───────────────────────────────────── */
       #custom-media {
         color: @base0E;
+        border-color: alpha(@base0E, 0.3);
       }
-      
+
       #custom-media.Playing {
         color: @base0B;
+        border-color: alpha(@base0B, 0.3);
       }
-      
+
       #custom-media.Paused {
-        color: @base0A;
+        color: @base04;
+        border-color: transparent;
       }
-      
+
+      /* ── Battery ─────────────────────────────────── */
       #battery {
-        color: @base05;
-      }
-      
-      #battery.charging {
         color: @base0B;
       }
-      
+
+      #battery.charging {
+        color: @base0B;
+        border-color: alpha(@base0B, 0.4);
+      }
+
       #battery.warning:not(.charging) {
         color: @base0A;
+        border-color: alpha(@base0A, 0.4);
       }
-      
+
       #battery.critical:not(.charging) {
         color: @base08;
+        border-color: alpha(@base08, 0.6);
         animation-name: blink;
-        animation-duration: 0.5s;
-        animation-timing-function: linear;
+        animation-duration: 0.8s;
+        animation-timing-function: ease-in-out;
         animation-iteration-count: infinite;
         animation-direction: alternate;
       }
-      
+
+      /* ── System stats ────────────────────────────── */
       #cpu {
-        color: @base08;
+        color: @base0D;
       }
-      
+
       #memory {
         color: @base0E;
       }
-      
-      #temperature {
+
+      #custom-gpu {
         color: @base0C;
+        border-color: alpha(@base0C, 0.3);
       }
-      
+
+      #disk {
+        color: @base0F;
+      }
+
+      #temperature {
+        color: @base0A;
+      }
+
       #temperature.critical {
         color: @base08;
+        border-color: alpha(@base08, 0.5);
       }
-      
+
+      /* ── Network ─────────────────────────────────── */
       #network {
         color: @base0D;
       }
-      
+
       #network.disconnected {
         color: @base08;
+        border-color: alpha(@base08, 0.4);
       }
-      
+
+      /* ── Audio ───────────────────────────────────── */
       #pulseaudio {
         color: @base05;
       }
-      
+
       #pulseaudio.muted {
-        color: @base0A;
+        color: @base03;
+        border-color: alpha(@base03, 0.3);
       }
-      
+
+      /* ── Tray ────────────────────────────────────── */
+      #tray {
+        padding: 2px 6px;
+      }
+
+      #tray > .passive {
+        -gtk-icon-effect: dim;
+      }
+
+      #tray > .needs-attention {
+        -gtk-icon-effect: highlight;
+        border-color: @base08;
+      }
+
+      /* ── Blink animation ─────────────────────────── */
       @keyframes blink {
         to {
-          background-color: alpha(@base09, 0.8);
+          background: alpha(@base08, 0.25);
+          color: @base07;
         }
       }
     '';
