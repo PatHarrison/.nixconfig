@@ -31,12 +31,17 @@ let C = config.lib.stylix.colors; in
 
       git_status = {
         format = "([$all_status$ahead_behind](#${C.base08}) )";
-        staged = "󱖫 ";
-        modified = " ";
-        untracked = "…";
+        staged = "●";
+        modified = "✎";
+        untracked = "?";
+        deleted = "✖";
+        renamed = "»";
+        stashed = "";
         ahead = "⇡$count";
         behind = "⇣$count";
-        diverged = "⇕";
+        diverged = "⇡$ahead_count⇣$behind_count";
+        up_to_date = "✔";
+        conflicted = "✖";
       };
 
       character = {
