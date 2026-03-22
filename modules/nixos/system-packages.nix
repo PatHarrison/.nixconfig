@@ -41,6 +41,9 @@ in
 
     # Dev
     python314
+    pgadmin4-desktopmode
+    postgresql
+    pgcli
 
     # Wayland Utilities
     wl-clipboard
@@ -54,7 +57,6 @@ in
 
     # Apps
     kitty
-    pgadmin4-desktopmode
 
     (qgis.override {
       extraPythonPackages = ps:

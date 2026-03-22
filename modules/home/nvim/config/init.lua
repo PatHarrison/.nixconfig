@@ -5,6 +5,7 @@ require('plugins.lsp')
 require('plugins.completion')
 require('plugins.treesitter')
 require('plugins.ui')
+require('plugins.dap')
 require('keymaps')
 
 vim.cmd([[colorscheme mistwood]])

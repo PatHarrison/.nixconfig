@@ -73,6 +73,10 @@
       
       # Indent guides
       # indent-blankline-nvim
+
+      #dap
+      nvim-dap
+      nvim-dap-python
     ];
   };
 
@@ -87,7 +91,7 @@
     "nvim/lua/plugins/completion.lua".source = ./nvim/config/plugins/completion.lua;
     "nvim/lua/plugins/treesitter.lua".source = ./nvim/config/plugins/treesitter.lua;
     "nvim/lua/plugins/ui.lua".source = ./nvim/config/plugins/ui.lua;
-    # "nvim/lua/plugins/avante.lua".source = ./nvim/config/plugins/avante.lua;
+    "nvim/lua/plugins/dap.lua".source = ./nvim/config/plugins/dap.lua;
   };
 }
     

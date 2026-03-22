@@ -75,4 +75,18 @@
 
   services.gvfs.enable = true;
 
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_17;
+    ensureDatabases = [ "devdb" ];
+    ensureUsers = [{
+      name = "patrick";
+      ensureClauses.superuser = true;
+    }];
+    authentication = ''
+      local all all trust
+      host all all 127.0.0.1/32 trust
+    '';
+  };
+
 }

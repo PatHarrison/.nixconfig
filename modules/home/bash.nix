@@ -27,6 +27,11 @@
       #tmux
       t = "tmux new-session -A -s main";
 
+      #pg
+      pgstart = "sudo systemctl start postgresql";
+      pgstop  = "sudo systemctl stop postgresql";
+      pglog   = "sudo journalctl -u postgresql -f";
+
       rbs = "bash ~/.nixconfig/apply.sh";
       rbc = "bash ~/.nixconfig/clean.sh";
       
