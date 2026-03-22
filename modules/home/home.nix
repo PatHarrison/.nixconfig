@@ -31,16 +31,6 @@
     enable = true;
   };
 
-  programs.firefox = {
-    enable = true;
-    package = pkgs.firefox;
-    profiles.default = {
-      settings = {
-        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-      };
-    };
-  };
-
   home.packages = with pkgs; [
     fastfetch 
     obsidian
@@ -65,5 +55,40 @@
     prev_img       h
     quit           q
     toggle_fullscreen Return
+  '';
+
+  home.file.".zen/profiles.ini".text = ''
+    [Profile0]
+    Name=pat
+    IsRelative=1
+    Path=pat
+    Default=1
+
+    [General]
+    StartWithLastProfile=1
+    Version=2
+  '';
+  home.file.".zen/pat/user.js".text = ''
+    // Password manager
+    user_pref("signon.rememberSignons", true);
+    user_pref("signon.autofillForms", true);
+
+    // Restore previous session
+    user_pref("browser.startup.page", 3);
+
+    // Smooth scrolling
+    user_pref("general.smoothScroll", true);
+
+    // Compact UI density
+    user_pref("browser.uidensity", 1);
+    user_pref("toolkit.legacyUserProfileCustomizations.stylesheets",true);
+
+    // Disable telemetry
+    user_pref("datareporting.healthreport.uploadEnabled", false);
+    user_pref("toolkit.telemetry.enabled", false);
+
+    // Hardware acceleration (good with your Nvidia setup)
+    user_pref("layers.acceleration.enabled", true);
+    user_pref("gfx.webrender.all", true);
   '';
 }

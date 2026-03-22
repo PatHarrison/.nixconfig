@@ -21,8 +21,8 @@ in
     };
     theme = let inherit (config.lib.formats.rasi) mkLiteral; in {
       "*" = {
-        bg        = mkLiteral "#${C.base00}";
-        bg-alt    = mkLiteral "#${C.base01}";
+        bg        = mkLiteral "#${C.base00}AA";
+        bg-alt    = mkLiteral "#${C.base01}AA";
         fg        = mkLiteral "#${C.base05}";
         fg-dim    = mkLiteral "#${C.base03}";
         accent    = mkLiteral "#${C.base0B}";

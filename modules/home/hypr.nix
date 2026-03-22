@@ -9,6 +9,15 @@ in
 
     # Minimal Hyprland config
     settings = {
+      "windowrule" = [
+        "opacity 0.97 0.90, match:class ^(zen)$"
+        "float on, match:class ^(zen) match:title ^(Opening)$"
+        "float on, match:class ^(zen) match:title ^(Save)$"
+        "float on, match:class ^(zen) match:title ^(Enter name)$"
+        "opacity 0.97 0.90, match:class ^(thunar)$"
+        "opacity 0.97 0.90, match:class ^(thunderbird)$"
+        "opacity 0.97 0.90, match:class ^(kitty)$"
+      ];
       monitor = [
         "eDP-1,2560x1600@60,0x0,1"
         "HDMI-A-1,3840x2160@60,2560x0,1.25,vrr,0"
@@ -62,9 +71,6 @@ in
         "swaybg -i /home/patrick/.nixconfig/wallpapers/wallpaper2.jpeg -m fill"
         "waybar"
         "sleep 2 && hyprctl dispatch dpms on"
-      ];
-
-      windowrulev2 = [
       ];
 
       misc = {

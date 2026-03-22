@@ -6,8 +6,6 @@ keymap('n', '<leader>t', ':NERDTreeToggle<CR>', { desc = 'Toggle file explorer' 
 -- Telescope
 keymap('n', '<leader>f', require('telescope.builtin').find_files, { desc = 'Find files' })
 keymap('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = 'Live grep' })
-keymap('n', '<leader>fb', require('telescope.builtin').buffers, { desc = 'Find buffers' })
-keymap('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = 'Help tags' })
 
 -- LSP
 keymap('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
