@@ -35,8 +35,8 @@ in
         background-color = mkLiteral "@bg";
         border           = mkLiteral "1px";
         border-color     = mkLiteral "@border-color";
-        border-radius    = mkLiteral "8px";
-        width            = mkLiteral "480px";
+        border-radius    = mkLiteral "2px";
+        width            = mkLiteral "720px";
         padding          = mkLiteral "0";
       };
       "mainbox" = {
@@ -46,9 +46,9 @@ in
       };
       "inputbar" = {
         background-color = mkLiteral "@bg-alt";
-        border-radius    = mkLiteral "8px 8px 0 0";
-        padding          = mkLiteral "10px 14px";
-        spacing          = mkLiteral "8px";
+        border-radius    = mkLiteral "4px 4px 0 0";
+        padding          = mkLiteral "7px 10px";
+        spacing          = mkLiteral "2px";
         children         = mkLiteral "[prompt, entry]";
       };
       "prompt" = {
@@ -64,7 +64,7 @@ in
       };
       "listview" = {
         background-color = mkLiteral "transparent";
-        padding          = mkLiteral "6px";
+        padding          = mkLiteral "3px";
         spacing          = mkLiteral "2px";
         lines            = 8;
         fixed-height     = true;
@@ -72,8 +72,8 @@ in
       "element" = {
         background-color = mkLiteral "transparent";
         text-color       = mkLiteral "@fg-dim";
-        border-radius    = mkLiteral "6px";
-        padding          = mkLiteral "8px 10px";
+        border-radius    = mkLiteral "2px";
+        padding          = mkLiteral "4px 5px";
       };
       "element selected" = {
         background-color = mkLiteral "@bg-alt";
@@ -95,14 +95,14 @@ in
       };
       "mode-switcher" = {
         background-color = mkLiteral "@bg-alt";
-        border-radius    = mkLiteral "0 0 8px 8px";
+        border-radius    = mkLiteral "0 0 2px 2px";
         padding          = mkLiteral "4px";
         spacing          = mkLiteral "2px";
       };
       "button" = {
         background-color = mkLiteral "transparent";
         text-color       = mkLiteral "@fg-dim";
-        border-radius    = mkLiteral "4px";
+        border-radius    = mkLiteral "2px";
         padding          = mkLiteral "4px 10px";
       };
       "button selected" = {
