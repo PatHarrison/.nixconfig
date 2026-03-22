@@ -17,6 +17,7 @@ in
         "opacity 0.97 0.90, match:class ^(thunar)$"
         "opacity 0.97 0.90, match:class ^(thunderbird)$"
         "opacity 0.97 0.90, match:class ^(kitty)$"
+        "opacity 0.97 0.90, match:class ^(qgis)$"
       ];
       monitor = [
         "eDP-1,2560x1600@60,0x0,1"

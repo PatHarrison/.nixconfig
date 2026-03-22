@@ -16,7 +16,7 @@ in
 
         modules-left = [ "hyprland/workspaces" "hyprland/window"];
         modules-center = [ "clock" ];
-        modules-right = [ "custom/media" "custom/gpu" "disk" "pulseaudio" "cpu" "memory" "temperature" "battery" "network" "tray" ];
+        modules-right = [ "custom/media" "pulseaudio" "cpu" "custom/gpu" "memory" "disk" "temperature" "battery" "network" "tray" ];
 
         "hyprland/workspaces" = {
           disable-scroll = true;
@@ -100,6 +100,7 @@ in
         };
 
         cpu.format = "CPU {usage}%";
+
         memory.format = "RAM {used:0.1f}G";
 
         battery = {
@@ -160,7 +161,7 @@ in
       }
 
       window#waybar {
-        background: alpha(@base00, 0.85);
+        background: alpha(@base00, 0.75);
         border-bottom: 1px solid alpha(@base02, 0.5);
         color: @base05;
       }

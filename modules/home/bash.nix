@@ -98,7 +98,7 @@
       }
 
       # Set PS1 with git info
-      export PS1='$(git_prompt)\[\e[32m\]\u@\h\[\e[0m\]:\[\e[38;5;248m\]\w\[\e[0m\]\$ '
+      export PS1='$(git_prompt)\[\e[38;2;118;134;91m\]\u\[\e[38;2;102;92;84m\]:\[\e[38;2;100;120;125m\]\w\[\e[0m\] \[\e[38;2;233;196;106m\]\$\[\e[0m\] '
       
       # Update terminal title and history
       PROMPT_COMMAND='history -a; history -n'

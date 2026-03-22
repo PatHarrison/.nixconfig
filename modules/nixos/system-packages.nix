@@ -15,7 +15,7 @@ in
     unzip
     zip
     ripgrep
-    btop
+    (btop.override { cudaSupport = true;})
     tree
     lshw
     inxi

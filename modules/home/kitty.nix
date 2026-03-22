@@ -17,8 +17,21 @@ in
       kitty_mod = "ctrl+shift";
       term = "xterm-256color";
       disable_ligatures = "cursor";
+      font_family = "JetBrainsMono Nerd Font";
+      font_size = "13.0";
+      bold_font = "JetBrainsMono Nerd Font Bold";
+      italic_font = "JetBrainsMono Nerd Font Italic";
 
       background_opacity = "0.9";
+
+      tab_bar_edge = "top";
+      tab_bar_style = "powerline";
+      tab_powerline_style = "slanted";
+      tab_title_template = "{index}: {title}";
+      active_tab_foreground = "#${colors.base05}";
+      active_tab_background = "#${colors.base02}";
+      inactive_tab_foreground = "#${colors.base04}";
+      inactive_tab_background = "#${colors.base01}";
       
       # Cursor
       cursor_shape = "beam";
@@ -70,11 +83,9 @@ in
       color15 = "#${colors.base0F}";
     };
 
-
-
     keybindings = {
-      "ctrl+shift+t" = "new_tab";
-      "ctrl+shift+w" = "close_tab";
+      "ctrl+shift+n" = "new_tab";
+      "ctrl+shift+x" = "close_tab";
       "ctrl+shift+enter" = "new_window";
       "ctrl+shift+h" = "show_scrollback";
     };

@@ -20,19 +20,47 @@ in
       # Mouse support
       set -g mouse on
 
-      # Vim-style pane navigation
+      # Windows (tabs)
+      bind t new-window -c "#{pane_current_path}"
+      bind w kill-window
+      bind , command-prompt -I "#W" "rename-window '%%'"
+
+      # Quick jump to window by number
+      bind 1 select-window -t 1
+      bind 2 select-window -t 2
+      bind 3 select-window -t 3
+      bind 4 select-window -t 4
+      bind 5 select-window -t 5
+
+      # Prefix + vim keys to switch panes
       bind h select-pane -L
       bind j select-pane -D
       bind k select-pane -U
       bind l select-pane -R
+
+      # Prefix + vim keys to resize panes (-r means repeatable)
+      bind -r C-h resizepane -L 5
+      bind -r C-j resize-pane -D 5
+      bind -r C-k resize-pane -U 5
+      bind -r C-l resize-pane -R 5
 
       # Split with | and -
       bind | split-window -h -c "#{pane_current_path}"
       bind - split-window -v -c "#{pane_current_path}"
       bind c new-window -c "#{pane_current_path}"
 
+      # Move windows left/right
+      bind -r < swap-window -d -t -1
+      bind -r > swap-window -d -t +1
+
       # Reload config
       bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded!"
+
+      # Copy mode vim bindings
+      bind v copy-mode
+      bind -T copy-mode-vi v send-keys -X begin-selection
+      bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "wl-copy"
+      bind -T copy-mode-vi C-v send-keys -X rectangle-toggle
 
       # Status bar
       set -g status-position top
@@ -47,7 +75,7 @@ in
       set -g pane-border-style "fg=#${colors.base02}"
       set -g pane-active-border-style "fg=#${colors.base0D}"
 
-      set -g message-style "bg=#${colors.base01},fg=#${colors.base0A}"
+      set -g message-style "bg=#${colors.base02},fg=#${colors.base0A}"
     '';
   };
 }
