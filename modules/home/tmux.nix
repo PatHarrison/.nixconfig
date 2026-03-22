@@ -13,6 +13,17 @@ in
     keyMode = "vi";
     prefix = "C-a";
 
+    plugins = with pkgs.tmuxPlugins; [
+      resurrect
+      {
+        plugin = continuum;
+        extraConfig = ''
+          set -g @continuum-restore 'on'
+          set -g @continuum-save-interval '10'
+        '';
+      }
+    ];
+
     extraConfig = ''
       # True color
       set -ag terminal-overrides ",xterm-256color:RGB"

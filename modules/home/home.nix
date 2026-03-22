@@ -18,6 +18,7 @@
     ./git.nix
     ./tmux.nix
     ./xdg.nix
+    ./starship.nix
   ];
 
   home.stateVersion = "25.05";
