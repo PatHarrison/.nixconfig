@@ -42,7 +42,12 @@
     alsa.enable = true;
     pulse.enable = true;
     jack.enable = true;
+    # Add this:
+    systemWide = false;  # ensure it runs as user service, not system
   };
+
+  # Add this:
+  security.rtkit.enable = true;
 
   systemd.user.services.udiskie = {
     description = "Automount USB drives with udiskie";
@@ -88,6 +93,12 @@
   virtualisation.docker = {
     enable = true;
     enableOnBoot = true;
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+    config.common.default = "*";
   };
 
 }

@@ -56,7 +56,6 @@ in
     libsForQt5.qt5.qtwayland
     qt6.qtwayland
 
-
     # Apps
     kitty
 
@@ -74,8 +73,6 @@ in
     texlive.combined.scheme-full
     inkscape
     gimp
-    obs-studio
-
     thunar
     ranger
     thunderbird
@@ -83,6 +80,7 @@ in
     ffmpegthumbnailer
     foliate
     xarchiver
+    obs-studio
 
     swaylock-effects
 

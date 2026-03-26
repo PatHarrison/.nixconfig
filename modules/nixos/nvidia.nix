@@ -22,5 +22,7 @@
     __GL_GSYNC_ALLOWED = "0";
     __GL_VRR_ALLOWED = "0";
     WLR_NO_HARDWARE_CURSORS = "1";
+    HYPRLAND_NO_SD_NOTIFY = "1";
+    WLR_DRM_NO_ATOMIC = "1";
   };
 }
