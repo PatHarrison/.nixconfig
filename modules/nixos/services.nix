@@ -37,13 +37,25 @@
     package = pkgs.openrgb-with-all-plugins;
   };
 
+  services.upower.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     pulse.enable = true;
     jack.enable = true;
-    # Add this:
-    systemWide = false;  # ensure it runs as user service, not system
+    systemWide = false;
+    wireplumber.enable = true;  # add this - ensures it's explicitly enabled
+    wireplumber.extraConfig = {
+      "10-disable-nvidia" = {
+        "monitor.alsa.rules" = [{
+          matches = [{ "node.name" = "~alsa_output.pci-0000_00_1f.*"; }];
+          actions.update-props = {
+            "session.suspend-timeout-seconds" = 0;
+            "node.pause-on-idle" = false;
+          };
+        }];
+      };
+    };
   };
 
   # Add this:
@@ -97,8 +109,9 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+    extraPortals = [
+      pkgs.xdg-desktop-portal-hyprland
+    ];
     config.common.default = "*";
   };
-
 }
