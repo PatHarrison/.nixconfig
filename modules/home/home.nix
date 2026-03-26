@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, secrets, ... }:
 
 {
   imports = [
@@ -19,6 +19,7 @@
     ./tmux.nix
     ./xdg.nix
     ./starship.nix
+    ./env.nix
   ];
 
   home.stateVersion = "25.05";
@@ -33,17 +34,53 @@
   };
 
   home.packages = with pkgs; [
-    fastfetch 
+
+    # utils
+    wl-clipboard
+    cliphist
+    grim
+    slurp
     obsidian
     poetry
 
+    #libreoffice-qt
+    thunar
+    ranger
+    thunderbird
     hyprshot
     playerctl
 
-    gsimplecal
     wf-recorder
 
     inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
+
+
+    # Other Apps
+    pgadmin4-desktopmode 
+    pgcli
+    zathura
+    texlive.combined.scheme-full
+    inkscape 
+    gimp
+    obs-studio
+
+    # GIS
+    grass
+    (qgis.override {
+      extraPythonPackages = ps:
+        with ps; [
+          numpy
+          geopandas
+          rasterio
+        ];
+    })
+
+    # Games
+    (pkgs.factorio.override {
+      username = secrets.factorioUsername;
+      token = secrets.factorioToken;
+    })
+
   ];
 
   xdg.desktopEntries.pgadmin4 = {
@@ -51,10 +88,6 @@
     exec = "pgadmin4";
     terminal = false;
     categories = [ "Development" ];
-  };
-
-  home.sessionVariables = {
-    MOZ_ENABLE_WAYLAND = "1";
   };
 
   xdg.configFile."feh/keys".text = ''

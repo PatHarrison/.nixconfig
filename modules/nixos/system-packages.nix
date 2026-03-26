@@ -1,8 +1,5 @@
 { config, pkgs, lib, ... }:
 
-let
-  secrets = import ./secrets.nix;
-in
 {
   programs.hyprland.enable = true;
 
@@ -24,6 +21,7 @@ in
     nmap
     mtr
     gvfs
+    fastfetch 
 
 
     # Encryption
@@ -39,54 +37,20 @@ in
     pciutils
     networkmanagerapplet
     powertop
-    numlockx
+    ffmpegthumbnailer
+    tumbler
+    xarchiver
 
     # Dev
     python314
-    pgadmin4-desktopmode
-    pgcli
-    lazysql
 
     # Wayland Utilities
-    wl-clipboard
-    cliphist
-    grim
-    slurp
-
     libsForQt5.qt5.qtwayland
     qt6.qtwayland
 
     # Apps
     kitty
 
-    (qgis.override {
-      extraPythonPackages = ps:
-        with ps; [
-          numpy
-          geopandas
-          rasterio
-        ];
-    })
-    grass
-    # libreoffice-qt
-    zathura
-    texlive.combined.scheme-full
-    inkscape
-    gimp
-    thunar
-    ranger
-    thunderbird
-    tumbler
-    ffmpegthumbnailer
-    foliate
-    xarchiver
-    obs-studio
-
-    swaylock-effects
-
-    factorio
-
-    # open-webui
   ];
 
   environment.pathsToLink = [
@@ -98,13 +62,6 @@ in
     jetbrains-mono
     hack
   ];
-
-  nixpkgs.config.packageOverrides = pkgs: {
-    factorio = pkgs.factorio.override {
-      username = secrets.factorioUsername;
-      token = secrets.factorioToken;
-    };
-  };
 
   # Bluetooth
   hardware.bluetooth.enable = true;

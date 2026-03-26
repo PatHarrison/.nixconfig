@@ -119,13 +119,5 @@
       bind '"\e[Z":menu-complete-backward'
       bind '"\C-a":set-mark\C-e'
     '';
-    
-    # Bash environment variables
-    sessionVariables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
-      PAGER = "less";
-      LESS = "-R";
-    };
   };
 }

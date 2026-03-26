@@ -37,7 +37,10 @@
           home-manager.useUserPackages = true;
           home-manager.users.patrick = import ./modules/home/home.nix;
           home-manager.backupFileExtension = "backup";
-          home-manager.extraSpecialArgs = { inherit inputs; };
+          home-manager.extraSpecialArgs = { 
+            inherit inputs;
+            secrets = import "${self}/secrets.nix";
+          };
         }
         stylix.nixosModules.stylix
       ];
