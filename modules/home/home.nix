@@ -40,8 +40,17 @@
     hyprshot
     playerctl
 
+    gsimplecal
+
     inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
   ];
+
+  xdg.desktopEntries.pgadmin4 = {
+    name = "pgAdmin 4";
+    exec = "pgadmin4";
+    terminal = false;
+    categories = [ "Development" ];
+  };
 
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = "1";

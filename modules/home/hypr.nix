@@ -17,7 +17,8 @@ in
         "opacity 0.97 0.90, match:class ^(thunar)$"
         "opacity 0.97 0.90, match:class ^(thunderbird)$"
         "opacity 0.97 0.90, match:class ^(kitty)$"
-        "opacity 0.97 0.90, match:class ^(qgis)$"
+        "opacity 0.97 0.90, match:class ^(obsidian)$"
+        "opacity 0.97 0.90, match:class ^(connection)$"
       ];
       monitor = [
         "eDP-1,2560x1600@60,0x0,1"
@@ -218,8 +219,9 @@ in
     settings = {
       general = {
         lock_cmd = "pidof swaylock || swaylock -f";
-        before_sleep_cmd = "loginctl lock-session";
-        after_sleep_cmd = "hyprctl dispatch dpms on";
+        before_sleep_cmd = "loginctl lock-session && sleep 1";
+        after_sleep_cmd = "hyprctl dispatch dpms off && sleep 1 && hyprctl dispatch dpms on";
+        ignore_dbus_inhibit = false;
       };
 
       listener = [

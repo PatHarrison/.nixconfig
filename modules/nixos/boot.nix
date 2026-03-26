@@ -14,6 +14,7 @@
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     "nvidia.NVreg_TemporaryFilePath=/var/tmp"
     "nvidia.NVreg_EnableGpuFirmware=0"
+    "nvidia.NVreg_RestoreMemoryAllocations=1"  # add this
     "preempt=full"
     "acpi_osi=\"!Windows 2015\""
     "acpi_osi=Linux"

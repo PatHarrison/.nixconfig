@@ -50,7 +50,7 @@ in
       bind l select-pane -R
 
       # Prefix + vim keys to resize panes (-r means repeatable)
-      bind -r C-h resizepane -L 5
+      bind -r C-h resize-pane -L 5
       bind -r C-j resize-pane -D 5
       bind -r C-k resize-pane -U 5
       bind -r C-l resize-pane -R 5

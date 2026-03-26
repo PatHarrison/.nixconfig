@@ -16,6 +16,7 @@ in
     zip
     ripgrep
     (btop.override { cudaSupport = true;})
+    nvtopPackages.nvidia
     tree
     lshw
     inxi
@@ -37,13 +38,14 @@ in
     usbutils
     pciutils
     networkmanagerapplet
+    powertop
     numlockx
 
     # Dev
     python314
     pgadmin4-desktopmode
-    postgresql
     pgcli
+    lazysql
 
     # Wayland Utilities
     wl-clipboard

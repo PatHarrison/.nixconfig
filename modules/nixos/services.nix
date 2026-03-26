@@ -21,7 +21,15 @@
   #TODO: Figure out if this is needed
   services.thermald.enable = true;
 
-  services.xserver.displayManager.sessionCommands = "${pkgs.numlockx}/bin/numlockx on";
+  systemd.services.numlock = {
+    description = "Enable numlock on boot";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.numlockx}/bin/numlockx on";
+      RemainAfterExit = true;
+    };
+  };
 
   services.hardware.openrgb = {
     enable = true;
@@ -54,17 +62,17 @@
     enable = true;
     settings = {
       default_session = {
-       command = lib.mkDefault ''
-        ${pkgs.tuigreet}/bin/tuigreet \
-        --time \
-        --time-format "%H:%M — %A, %B %d" \
-        --cmd 'hyprland' \
-        --user-menu \
-        --user-menu-min-uid 1000 \
-        --remember \
-        --remember-session \
-        --theme "border=magenta;text=yellow;prompt=green;time=green;action=blue;button=yellow;container=black;input=white"
-      '';
+        command = lib.mkDefault ''
+          ${pkgs.tuigreet}/bin/tuigreet \
+          --time \
+          --time-format "%H:%M — %A, %B %d" \
+          --cmd 'hyprland' \
+          --user-menu \
+          --user-menu-min-uid 1000 \
+          --remember \
+          --remember-session \
+          --theme "border=white;text=yellow;prompt=green;time=green;action=blue;button=yellow;container=black;input=white"
+        '';
         user = "greeter";
       };
     };
@@ -77,18 +85,9 @@
 
   services.gvfs.enable = true;
 
-  services.postgresql = {
+  virtualisation.docker = {
     enable = true;
-    package = pkgs.postgresql_17;
-    ensureDatabases = [ "devdb" ];
-    ensureUsers = [{
-      name = "patrick";
-      ensureClauses.superuser = true;
-    }];
-    authentication = ''
-      local all all trust
-      host all all 127.0.0.1/32 trust
-    '';
+    enableOnBoot = true;
   };
 
 }

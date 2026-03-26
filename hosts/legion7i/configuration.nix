@@ -17,7 +17,7 @@
 
   users.users.patrick = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" "audio" "input" "i2c" "plugdev" ];
+    extraGroups = [ "wheel" "networkmanager" "video" "audio" "input" "i2c" "plugdev" "docker" ];
   };
 
   # --------- SYSTEM STATE VERSION ---------- #
