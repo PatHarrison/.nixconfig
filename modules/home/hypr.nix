@@ -4,29 +4,6 @@ let
   mod = "$mainMod";
 in
 {
-  # Absorbs hyprland-unlock.nix
-  systemd.user.services.hyprland-unlock = {
-    Unit = {
-      Description = "Restore Hyprland display after resume";
-      After = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
-    };
-    Service = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.writeShellScript "hyprland-resume" ''
-        sleep 2
-        hyprctl dispatch dpms off
-        sleep 0.5
-        hyprctl dispatch dpms on
-        hyprctl keyword monitor "eDP-1,2560x1600@60,0x0,1"
-        hyprctl keyword monitor "HDMI-A-1,3840x2160@60,2560x0,1.25,vrr,0"
-        hyprctl keyword monitor ",preferred,auto,1"
-        pidof swaylock || swaylock -f
-      ''}";
-      Environment = "WAYLAND_DISPLAY=wayland-1";
-    };
-    Install.WantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
-  };
-
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
@@ -84,7 +61,7 @@ in
         "${mod}, F, fullscreen"
         ''${mod}, W, exec, ${ss} window -o ${pics} "${date}".png''
         ''${mod}, A, exec, ${ss} region -o ${pics} "${date}".png''
-        "${mod}, ESCAPE, exec, swaylock -f; systemctl --user start hyprland-unlock"
+        "${mod}, ESCAPE, exec, swaylock -f;"
 
         # Audio
         ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_SINK@ 0.05+"

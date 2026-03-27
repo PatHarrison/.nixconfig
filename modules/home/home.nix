@@ -3,8 +3,9 @@
 {
   imports = [
     ./hypr.nix
-    ./hyprland-unlock.nix
-    ./hyprpaper.nix
+    ./swaylock.nix
+    ./swayidle.nix
+    ./swaybg.nix
     ./waybar.nix
     ./kitty.nix
     ./bash.nix

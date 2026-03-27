@@ -39,21 +39,4 @@ in
       font = "JetBrains Nerd Font"; font-size = 20;
     };
   };
-
-  services.hypridle = {
-    enable = true;
-    settings = {
-      general = {
-        lock_cmd = "pidof swaylock || swaylock -f";
-        before_sleep_cmd = "loginctl lock-session && sleep 1";
-        after_sleep_cmd = "hyprctl dispatch dpms off && sleep 1 && hyprctl dispatch dpms on";
-        ignore_dbus_inhibit = false;
-      };
-      listener = [
-        { timeout = 150; on-timeout = "brightnessctl -s set 10%"; on-resume = "brightnessctl -r"; }
-        { timeout = 300; on-timeout = "loginctl lock-session"; }
-        { timeout = 600; on-timeout = "systemctl suspend"; }
-      ];
-    };
-  };
 }

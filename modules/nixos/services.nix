@@ -18,6 +18,26 @@
   #
   # hardware.printers.ensurePrinters = [];
 
+  systemd.services.hyprland-resume = {
+    description = "Re-initialize Hyprland monitors after resume";
+    after = [ "suspend.target" "hibernate.target" ];
+    wantedBy = [ "suspend.target" "hibernate.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "patrick";
+      Environment = "WAYLAND_DISPLAY=wayland-1 HOME=/home/patrick";
+      ExecStart = "${pkgs.writeShellScript "hyprland-resume" ''
+        sleep 2
+        export HYPRLAND_INSTANCE_SIGNATURE=$(ls /tmp/hypr/ | head -1)
+        export WAYLAND_DISPLAY=wayland-1
+        export HOME=/home/patrick
+        ${pkgs.hyprland}/bin/hyprctl dispatch dpms on
+        ${pkgs.hyprland}/bin/hyprctl keyword monitor "eDP-1,2560x1600@60,0x0,1"
+        ${pkgs.hyprland}/bin/hyprctl keyword monitor "HDMI-A-1,3840x2160@60,2560x0,1.25,vrr,0"
+      ''}";
+    };
+  };
+
   #TODO: Figure out if this is needed
   services.thermald.enable = true;
 
