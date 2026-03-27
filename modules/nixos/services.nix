@@ -21,16 +21,6 @@
   #TODO: Figure out if this is needed
   services.thermald.enable = true;
 
-  systemd.services.numlock = {
-    description = "Enable numlock on boot";
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.numlockx}/bin/numlockx on";
-      RemainAfterExit = true;
-    };
-  };
-
   services.hardware.openrgb = {
     enable = true;
     motherboard = "intel";

@@ -1,73 +1,65 @@
 { pkgs, config, lib, ... }:
-
 let
-  colors = config.lib.stylix.colors; # Stylix-exposed Base16 palette
+  C = config.lib.stylix.colors;
+  mod = "$mainMod";
 in
 {
+  # Absorbs hyprland-unlock.nix
+  systemd.user.services.hyprland-unlock = {
+    Unit = {
+      Description = "Restore Hyprland display after resume";
+      After = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.writeShellScript "hyprland-resume" ''
+        sleep 2
+        hyprctl dispatch dpms off
+        sleep 0.5
+        hyprctl dispatch dpms on
+        hyprctl keyword monitor "eDP-1,2560x1600@60,0x0,1"
+        hyprctl keyword monitor "HDMI-A-1,3840x2160@60,2560x0,1.25,vrr,0"
+        hyprctl keyword monitor ",preferred,auto,1"
+        pidof swaylock || swaylock -f
+      ''}";
+      Environment = "WAYLAND_DISPLAY=wayland-1";
+    };
+    Install.WantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
-
-    # Minimal Hyprland config
     settings = {
-      "windowrule" = [
-        "opacity 0.97 0.90, match:class ^(zen)$"
-        "float on, match:class ^(zen) match:title ^(Opening)$"
-        "float on, match:class ^(zen) match:title ^(Save)$"
-        "float on, match:class ^(zen) match:title ^(Enter name)$"
-        "opacity 0.97 0.90, match:class ^(thunar)$"
-        "opacity 0.97 0.90, match:class ^(thunderbird)$"
-        "opacity 0.97 0.90, match:class ^(kitty)$"
-        "opacity 0.97 0.90, match:class ^(obsidian)$"
-        "opacity 0.97 0.90, match:class ^(connection)$"
+      windowrule = [
+        "opacity 0.97 0.90, match:class ^(zen|thunar|thunderbird|kitty|obsidian|connection)$"
+        "float on, match:class ^(zen) match:title ^(Opening|Save|Enter name)$"
       ];
+
       monitor = [
         "eDP-1,2560x1600@60,0x0,1"
         "HDMI-A-1,3840x2160@60,2560x0,1.25,vrr,0"
-        
-        # Fallback for any other monitors
         ",preferred,auto,1"
       ];
 
-      general = {
-        border_size = 2;
-        gaps_in = 4;
-        gaps_out = 8;
-        layout = "dwindle";
-      };
-
-      dwindle = {
-        pseudotile = true;
-        preserve_split = true;
-      };
+      general = { border_size = 2; gaps_in = 4; gaps_out = 8; layout = "dwindle"; };
+      dwindle = { pseudotile = true; preserve_split = true; };
 
       input = {
-        float_switch_override_focus = 2;
         kb_layout = "us";
         follow_mouse = 1;
         numlock_by_default = true;
-        touchpad = {
-          natural_scroll = true;
-        };
+        float_switch_override_focus = 2;
         sensitivity = 0;
+        touchpad.natural_scroll = true;
       };
 
-      decoration = {
-        blur = {
-          enabled = true;
-          size = 3;
-          passes = 1;
-          ignore_opacity = false;
-          new_optimizations = true;
-          popups = false;
-          noise = 0.0;
-          contrast = 1.0;
-          brightness = 1.5;
-        };
+      decoration.blur = {
+        enabled = true; size = 3; passes = 1;
+        ignore_opacity = false; new_optimizations = true;
+        popups = false; noise = 0.0; contrast = 1.0; brightness = 1.5;
       };
 
-      animations = {
-        enabled = true;
-      };
+      animations.enabled = true;
 
       exec-once = [
         "swaybg -i /home/patrick/.nixconfig/wallpapers/wallpaper2.jpeg -m fill"
@@ -75,27 +67,26 @@ in
         "sleep 2 && hyprctl dispatch dpms on"
       ];
 
-      misc = {
-        force_default_wallpaper = 0;
-        disable_hyprland_logo = true;
-      };
+      misc = { force_default_wallpaper = 0; disable_hyprland_logo = true; };
 
-      "$mainMod" = "mod4";
-      bind = [
-        "$mainMod, Return, exec, kitty"
-        "$mainMod, Q, killactive,"
-        "$mainMod, M, exit,"
-        "$mainMod, E, exec, thunar"
-        "$mainMod, V, togglefloating,"
-        "$mainMod, R, exec, rofi -show drun"
-        "$mainMod, P, pseudo,"
-        "$mainMod, S, togglesplit,"
-        "$mainMod, B, exec, zen"
-        "$mainMod, F, fullscreen"
-        ''$mainMod, W, exec, hyprshot -m window -o ~/Pictures/screenshots -f "$(date +%Y-%m-%d_%H-%M-%S)".png''
-        ''$mainMod, A, exec, hyprshot -m region -o ~/Pictures/screenshots -f "$(date +%Y-%m-%d_%H-%M-%S)".png''
+      "${mod}" = "mod4";
 
-        # Audio controls
+      bind = let ss = "hyprshot -m"; date = "$(date +%Y-%m-%d_%H-%M-%S)"; pics = "~/Pictures/screenshots -f"; in [
+        "${mod}, Return, exec, kitty"
+        "${mod}, Q, killactive,"
+        "${mod}, M, exit,"
+        "${mod}, E, exec, thunar"
+        "${mod}, V, togglefloating,"
+        "${mod}, R, exec, rofi -show drun"
+        "${mod}, P, pseudo,"
+        "${mod}, S, togglesplit,"
+        "${mod}, B, exec, zen"
+        "${mod}, F, fullscreen"
+        ''${mod}, W, exec, ${ss} window -o ${pics} "${date}".png''
+        ''${mod}, A, exec, ${ss} region -o ${pics} "${date}".png''
+        "${mod}, ESCAPE, exec, swaylock -f; systemctl --user start hyprland-unlock"
+
+        # Audio
         ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_SINK@ 0.05+"
         ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 0.05-"
         ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_SINK@ toggle"
@@ -103,143 +94,27 @@ in
         ",XF86AudioPrev, exec, playerctl previous"
         ",XF86AudioPlay, exec, playerctl play-pause"
 
-        # Screen brightness
+        # Brightness
         ",XF86MonBrightnessDown, exec, brightnessctl -q -d intel_backlight set 10%-"
         ",XF86MonBrightnessUp, exec, brightnessctl -q -d intel_backlight set 10%+"
-
-        # Move focus with mainMod + vim
-        "$mainMod, H, movefocus, l"
-        "$mainMod, L, movefocus, r"
-        "$mainMod, K, movefocus, u"
-        "$mainMod, J, movefocus, d"
-
-        # Move window with mainMod + arrow keys
-        "$mainMod SHIFT, H, movewindow, l"
-        "$mainMod SHIFT, L, movewindow, r"
-        "$mainMod SHIFT, K, movewindow, u"
-        "$mainMod SHIFT, J, movewindow, d"
-
-        # resize window with mainMod + arrow keys
-        "$mainMod CTRL, H, resizeactive, -20 0"
-        "$mainMod CTRL, L, resizeactive, 20 0"
-        "$mainMod CTRL, K, resizeactive, 0 -20"
-        "$mainMod CTRL, J, resizeactive, 0 20"
-        
-        # Switch workspaces with mainMod + [0-9]
-        "$mainMod, 1, workspace, 1"
-        "$mainMod, 2, workspace, 2"
-        "$mainMod, 3, workspace, 3"
-        "$mainMod, 4, workspace, 4"
-        "$mainMod, 5, workspace, 5"
-        "$mainMod, 6, workspace, 6"
-        "$mainMod, 7, workspace, 7"
-        "$mainMod, 8, workspace, 8"
-        "$mainMod, 9, workspace, 9"
-        "$mainMod, 0, workspace, 10"
-        
-        # Move active window to a workspace with mainMod + SHIFT + [0-9]
-        "$mainMod SHIFT, 1, movetoworkspace, 1"
-        "$mainMod SHIFT, 2, movetoworkspace, 2"
-        "$mainMod SHIFT, 3, movetoworkspace, 3"
-        "$mainMod SHIFT, 4, movetoworkspace, 4"
-        "$mainMod SHIFT, 5, movetoworkspace, 5"
-        "$mainMod SHIFT, 6, movetoworkspace, 6"
-        "$mainMod SHIFT, 7, movetoworkspace, 7"
-        "$mainMod SHIFT, 8, movetoworkspace, 8"
-        "$mainMod SHIFT, 9, movetoworkspace, 9"
-        "$mainMod SHIFT, 0, movetoworkspace, 10"
-
-        # Relative (monitor specific) workspace switcher
-        "$mainMod CTRL, right, workspace, r+1"
-        "$mainMod CTRL, left, workspace, r-1"
-
-        "$mainMod, ESCAPE, exec, swaylock -f; systemctl --user start hyprland-unlock"
+      ] ++
+      # Focus/move/resize — generated from direction map
+      (builtins.concatLists (map ({ key, dir }: [
+        "${mod}, ${key}, movefocus, ${dir}"
+        "${mod} SHIFT, ${key}, movewindow, ${dir}"
+        "${mod} CTRL, ${key}, resizeactive, ${if dir == "l" then "-20 0" else if dir == "r" then "20 0" else if dir == "u" then "0 -20" else "0 20"}"
+      ]) [
+        { key = "H"; dir = "l"; } { key = "L"; dir = "r"; }
+        { key = "K"; dir = "u"; } { key = "J"; dir = "d"; }
+      ])) ++
+      # Workspaces — generated
+      (builtins.concatLists (map (n: let ws = toString n; k = if n == 10 then "0" else ws; in [
+        "${mod}, ${k}, workspace, ${ws}"
+        "${mod} SHIFT, ${k}, movetoworkspace, ${ws}"
+      ]) (lib.range 1 10))) ++ [
+        "${mod} CTRL, right, workspace, r+1"
+        "${mod} CTRL, left, workspace, r-1"
       ];
     };
   };
-
-  programs.swaylock = {
-    enable = true;
-    package = pkgs.swaylock-effects;
-    settings = {
-      image = "/home/patrick/.nixconfig/wallpapers/wallpaper2.jpeg";
-      scaling = "fill";
-
-      # Blur + vignette
-      effect-blur = "8x4";
-      effect-vignette = "0.1:0.8";
-
-      # Clock
-      clock = true;
-      timestr = "%H:%M";
-      datestr = "%A, %B %d";
-
-      # Layout
-      indicator = true;
-      indicator-radius = 90;
-      indicator-thickness = 8;
-      indicator-idle-visible = false;
-
-      # Colors — all using Mistwood palette
-      inside-color          = "${colors.base00}cc";
-      inside-clear-color    = "${colors.base00}cc";
-      inside-ver-color      = "${colors.base0D}44";
-      inside-wrong-color    = "${colors.base08}44";
-
-      ring-color            = "${colors.base02}";
-      ring-clear-color      = "${colors.base0B}";
-      ring-ver-color        = "${colors.base0D}";
-      ring-wrong-color      = "${colors.base08}";
-
-      line-color            = "00000000";
-      line-clear-color      = "00000000";
-      line-ver-color        = "00000000";
-      line-wrong-color      = "00000000";
-
-      key-hl-color          = "${colors.base0B}";
-      bs-hl-color           = "${colors.base08}";
-      caps-lock-key-hl-color   = "${colors.base0A}";
-      caps-lock-bs-hl-color    = "${colors.base09}";
-
-      text-color            = "${colors.base05}";
-      text-clear-color      = "${colors.base0B}";
-      text-ver-color        = "${colors.base0D}";
-      text-wrong-color      = "${colors.base08}";
-
-      separator-color       = "00000000";
-
-      font = "JetBrains Nerd Font";
-      font-size = 20;
-    };
-  };
-
-  services.hypridle = {
-    enable = true;
-
-    settings = {
-      general = {
-        lock_cmd = "pidof swaylock || swaylock -f";
-        before_sleep_cmd = "loginctl lock-session && sleep 1";
-        after_sleep_cmd = "hyprctl dispatch dpms off && sleep 1 && hyprctl dispatch dpms on";
-        ignore_dbus_inhibit = false;
-      };
-
-      listener = [
-        {
-          timeout = 150;
-          on-timeout = "brightnessctl -s set 10%";
-          on-resume = "brightnessctl -r";
-        }
-        {
-          timeout = 300;
-          on-timeout = "loginctl lock-session";
-        }
-        {
-          timeout = 600;
-          on-timeout = "systemctl suspend";
-        }
-      ];
-    };
-  };
-
 }
