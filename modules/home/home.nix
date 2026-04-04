@@ -45,7 +45,7 @@
     poetry
 
     #libreoffice-qt
-    thunar
+    xfce.thunar
     ranger
     thunderbird
     hyprshot

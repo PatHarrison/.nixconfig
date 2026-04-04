@@ -3,16 +3,16 @@
 {
   services.swayidle = {
     enable = true;
-    
-    events = {
-      before-sleep = "lock-screen";
-      lock = "lock-screen";
-    };
+
+    events = [
+      { event = "before-sleep"; command = "swaylock -f"; }
+      { event = "lock";         command = "swaylock -f"; }
+    ];
 
     timeouts = [
-      { timeout = 300; command = "lock-screen"; }
-      { 
-        timeout = 600; 
+      { timeout = 300; command = "swaylock -f"; }
+      {
+        timeout = 600;
         command = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
         resumeCommand = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
       }

@@ -38,7 +38,7 @@
     networkmanagerapplet
     powertop
     ffmpegthumbnailer
-    tumbler
+    xfce.tumbler
     xarchiver
 
     # Dev
