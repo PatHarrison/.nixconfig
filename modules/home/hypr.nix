@@ -8,8 +8,8 @@ in
     enable = true;
     settings = {
       windowrule = [
-        "opacity 0.97 0.90, match:class ^(zen|thunar|thunderbird|kitty|obsidian|connection)$"
-        "float on, match:class ^(zen) match:title ^(Opening|Save|Enter name)$"
+        "opacity 0.97 0.90,class:^(zen|thunar|thunderbird|kitty|obsidian|connection)$"
+        "float,class:^(zen)$,title:^(Opening|Save|Enter name)$"
       ];
 
       monitor = [
