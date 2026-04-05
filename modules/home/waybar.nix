@@ -19,6 +19,7 @@ in
         modules-right  = [
           "custom/media"
           "pulseaudio"
+          "custom/audiomenu"
           "cpu"
           "custom/gpu"
           "memory"
@@ -26,101 +27,91 @@ in
           "temperature"
           "battery"
           "network"
+          "custom/netmenu"
           "tray"
         ];
 
         "hyprland/workspaces" = {
           disable-scroll = true;
           all-outputs = true;
-          format = "{id}";
+          format = ''{id}'';
         };
-
         "hyprland/window" = {
-          format = "{}";
+          format = ''{}'';
           max-length = 60;
           separate-outputs = true;
         };
-
         clock = {
-          format = "{:%A %d %B  %H:%M}";
-          format-alt = "{:%H:%M}";
-          tooltip-format = "{:%A, %B %d %Y}";
+          format = ''{:%A %d %B  %H:%M}'';
+          format-alt = ''{:%H:%M}'';
+          tooltip-format = ''{:%A, %B %d %Y}'';
           on-click = "mode";
         };
-
         pulseaudio = {
-          format = "VOL {volume}%";
+          format = ''VOL {volume}%'';
           format-muted = "VOL ---";
           on-click = "wpctl set-mute @DEFAULT_SINK@ toggle";
           on-click-right = "pavucontrol";
           on-scroll-up = "wpctl set-volume @DEFAULT_SINK@ 2%+";
           on-scroll-down = "wpctl set-volume @DEFAULT_SINK@ 2%-";
-          tooltip-format = "Sink: {desc}\nVolume: {volume}%";
+          tooltip-format = ''Sink: {desc}\nVolume: {volume}%'';
           scroll-step = 2;
         };
-
         cpu = {
-          format = "CPU {usage}%";
+          format = ''CPU {usage}%'';
           interval = 2;
-          tooltip-format = "CPU Usage: {usage}%\nLoad: {load}";
+          tooltip-format = ''CPU Usage: {usage}%\nLoad: {load}'';
           on-click = "kitty --title btop -- btop";
         };
-
         "custom/gpu" = {
-          exec = "nvidia-smi --query-gpu=utilization.gpu,temperature.gpu,memory.used,memory.total --format=csv,noheader,nounits | awk -F', ' '{printf \"GPU %d%%\", $1}'";
+          exec = ''nvidia-smi --query-gpu=utilization.gpu,temperature.gpu,memory.used,memory.total --format=csv,noheader,nounits | awk -F', ' '{printf "GPU %d%%", $1}' '';
           tooltip = true;
           exec-on-event = false;
           interval = 2;
-          format = "{}";
+          format = ''{}'';
           on-click = "kitty --title=nvtop -e nvtop";
         };
-
         memory = {
-          format = "RAM {used:0.1f}G";
+          format = ''RAM {used:0.1f}G'';
           interval = 5;
-          tooltip-format = "Used: {used:0.1f}G / {total:0.1f}G\nSwap: {swapUsed:0.1f}G / {swapTotal:0.1f}G";
+          tooltip-format = ''Used: {used:0.1f}G / {total:0.1f}G\nSwap: {swapUsed:0.1f}G / {swapTotal:0.1f}G'';
           on-click = "kitty --title btop -- btop";
         };
-
         disk = {
-          format = "DSK {percentage_used}%";
+          format = ''DSK {percentage_used}%'';
           path = "/";
           interval = 30;
-          tooltip-format = "{path}\nUsed: {used} / {total}\nFree: {free}";
+          tooltip-format = ''{path}\nUsed: {used} / {total}\nFree: {free}'';
         };
-
         temperature = {
           thermal-zone = 0;
           critical-threshold = 85;
-          format = "TMP {temperatureC}°C";
-          format-critical = "HOT {temperatureC}°C";
-          tooltip-format = "Temperature: {temperatureC}°C";
+          format = ''TMP {temperatureC}°C'';
+          format-critical = ''HOT {temperatureC}°C'';
+          tooltip-format = ''Temperature: {temperatureC}°C'';
         };
-
         battery = {
           states = { warning = 30; critical = 15; };
-          format = "BAT {capacity}%{icon}";
-          format-charging = "BAT {capacity}%+";
-          format-plugged = "BAT {capacity}%=";
+          format = ''BAT {capacity}%{icon}'';
+          format-charging = ''BAT {capacity}%+'';
+          format-plugged = ''BAT {capacity}%='';
           format-icons = [ "" "" "" "" "" ];
-          tooltip-format = "{timeTo}\nPower: {power}W\nCycles: {cycles}";
+          tooltip-format = ''{timeTo}\nPower: {power}W\nCycles: {cycles}'';
           on-click = "kitty --title powertop -- sudo powertop";
         };
-
         network = {
-          format-wifi = "NET {essid}";
-          format-ethernet = "ETH {ipaddr}";
+          format-wifi = ''NET {essid}'';
+          format-ethernet = ''ETH {ipaddr}'';
           format-disconnected = "NET ---";
-          format-linked = "NET {ifname}";
-          tooltip-format-wifi = "SSID: {essid}\nSignal: {signalStrength}%\nFreq: {frequency}GHz\nIP: {ipaddr}\nGW: {gwaddr}";
-          tooltip-format-ethernet = "Interface: {ifname}\nIP: {ipaddr}/{cidr}\nGW: {gwaddr}";
+          format-linked = ''NET {ifname}'';
+          tooltip-format-wifi = ''SSID: {essid}\nSignal: {signalStrength}%\nFreq: {frequency}GHz\nIP: {ipaddr}\nGW: {gwaddr}'';
+          tooltip-format-ethernet = ''Interface: {ifname}\nIP: {ipaddr}/{cidr}\nGW: {gwaddr}'';
           tooltip-format-disconnected = "Disconnected";
           on-click-left = "nm-connection-editor";
           interval = 5;
         };
-
         "custom/media" = {
-          format = "{}";
+          format = ''{}'';
           return-type = "json";
           max-length = 36;
           escape = true;
@@ -146,7 +137,6 @@ in
           on-scroll-down = "${pkgs.playerctl}/bin/playerctl previous";
           interval = 2;
         };
-
         tray = {
           spacing = 6;
           show-passive-items = true;

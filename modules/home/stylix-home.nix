@@ -13,5 +13,6 @@
     neovim.enable = false;
     swaylock.enable = false;
     rofi.enable = false;
+    dunst.enable = false;
   };
 }

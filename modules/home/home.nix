@@ -3,10 +3,11 @@
 {
   imports = [
     ./hypr.nix
+    ./waybar.nix
     ./swaylock.nix
     ./swayidle.nix
     ./swaybg.nix
-    ./waybar.nix
+    ./dunst.nix
     ./kitty.nix
     ./bash.nix
     ./neovim.nix
@@ -15,7 +16,6 @@
     ./electron.nix
     ./stylix-home.nix
     ./rofi.nix
-    ./dunst.nix
     ./git.nix
     ./tmux.nix
     ./xdg.nix
