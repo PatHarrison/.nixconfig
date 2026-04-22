@@ -30,7 +30,3 @@ keymap('v', '>', '>gv')
 
 -- Clear search highlighting
 keymap('n', '<Esc>', ':nohlsearch<CR>')
-
--- Avante
-keymap('n', '<leader>aa', '<cmd>AvanteAsk<cr>', { desc = 'Avante Ask' })
-keymap('v', '<leader>ae', '<cmd>AvanteEdit<cr>', { desc = 'Avante Edit selection' })

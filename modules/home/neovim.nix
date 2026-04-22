@@ -77,6 +77,7 @@
       #dap
       nvim-dap
       nvim-dap-python
+
     ];
   };
 
