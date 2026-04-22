@@ -3,20 +3,34 @@
 {
   services.resolved.enable = true;
   services.udisks2.enable = true;
-  services.openssh.enable = true;
   services.libinput.enable = true;
   services.dbus.enable = true;
 
-  # services.printing.enable = true;
-  # services.printing.drivers = [ pkgs.gutenprint pkgs.cnijfilter2 ];
-  # environment.etc."papersize".text = "letter";
-  # services.avahi = {
-  #   enable = true;
-  #   nssmdns4 = true;
-  #   openFirewall = true;
-  # };
-  #
-  # hardware.printers.ensurePrinters = [];
+  services.printing.enable = true;
+  services.printing.drivers = [ pkgs.gutenprint pkgs.cnijfilter2 ];
+  environment.etc."papersize".text = "letter";
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  hardware.printers.ensurePrinters = [];
+
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+      KbdInteractiveAuthentication = false;
+    };
+  };
+
+  security.auditd.enable = true;
+  security.audit.enable = true;
+  security.audit.rules = [
+    "-a exit,always -F arch=b64 -S execve"
+  ];
 
   systemd.services.hyprland-resume = {
     description = "Re-initialize Hyprland monitors after resume";
@@ -37,9 +51,6 @@
       ''}";
     };
   };
-
-  #TODO: Figure out if this is needed
-  services.thermald.enable = true;
 
   services.hardware.openrgb = {
     enable = true;
@@ -68,7 +79,6 @@
     };
   };
 
-  # Add this:
   security.rtkit.enable = true;
 
   systemd.user.services.udiskie = {
@@ -123,5 +133,15 @@
       pkgs.xdg-desktop-portal-hyprland
     ];
     config.common.default = "*";
+  };
+
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+    environmentVariables = {
+      CUDA_VISIBLE_DEVICES = "0";
+      __NV_PRIME_RENDER_OFFLOAD = "1";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    };
   };
 }

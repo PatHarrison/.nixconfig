@@ -14,6 +14,9 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixpkgs-ollama.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-ollama.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, home-manager, stylix, ... }@inputs:

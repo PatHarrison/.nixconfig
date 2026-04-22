@@ -15,6 +15,9 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  nix.settings.allowed-users = [ "patrick" ];
+  nix.settings.trusted-users = [ "root" "patrick" ];
+
   users.users.patrick = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "audio" "input" "i2c" "plugdev" "docker" ];

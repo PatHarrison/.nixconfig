@@ -22,7 +22,7 @@ in
       bold_font = "JetBrainsMono Nerd Font Bold";
       italic_font = "JetBrainsMono Nerd Font Italic";
 
-      background_opacity = "0.9";
+      background_opacity = "1";
 
       tab_bar_edge = "top";
       tab_bar_style = "powerline";
