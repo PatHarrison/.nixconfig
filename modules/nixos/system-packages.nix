@@ -23,6 +23,7 @@
     mtr
     gvfs
     fastfetch 
+    glow
 
 
     # Encryption
