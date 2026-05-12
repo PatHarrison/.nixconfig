@@ -31,6 +31,7 @@
       rbc = "bash ~/.nixconfig/clean.sh";
       
     };
+    historyControl = [ "ignorespace" "erasedups" ];
     
     # Bash initialization
     initExtra = ''

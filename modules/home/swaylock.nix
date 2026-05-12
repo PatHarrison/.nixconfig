@@ -7,7 +7,7 @@ in
     enable = true;
     package = pkgs.swaylock-effects;
     settings = {
-      image = "/home/patrick/.nixconfig/wallpapers/wallpaper2.jpeg";
+      image = "${config.home.homeDirectory}/.nixconfig/wallpapers/wallpaper2.jpeg";
       scaling = "fill";
       effect-blur = "8x4";
       effect-vignette = "0.1:0.8";

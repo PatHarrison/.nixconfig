@@ -8,7 +8,8 @@ in
     enable = true;
     settings = {
       windowrule = [
-        "opacity 0.97 0.90,class:^(zen|thunar|thunderbird|kitty|obsidian|connection)$"
+        "opacity 0.97 0.90,class:^(zen|thunar|thunderbird|kitty|obsidian|connection|qgis|grass)$"
+        "tile,class:^(qgis)$"
         "float,class:^(zen)$,title:^(Opening|Save|Enter name)$"
       ];
 
@@ -39,7 +40,7 @@ in
       animations.enabled = true;
 
       exec-once = [
-        "swaybg -i /home/patrick/.nixconfig/wallpapers/wallpaper2.jpeg -m fill"
+        "swaybg -i ${config.home.homeDirectory}/.nixconfig/wallpapers/wallpaper2.jpeg -m fill"
         "waybar"
         "sleep 2 && hyprctl dispatch dpms on"
       ];

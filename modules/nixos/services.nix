@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, mainUser, mainUserHome, ... }:
 
 {
   services.resolved.enable = true;
@@ -19,10 +19,18 @@
 
   services.openssh = {
     enable = true;
+    ports = [ 22 ];
     settings = {
       PasswordAuthentication = false;
+      PubkeyAuthentication = true;
       PermitRootLogin = "no";
       KbdInteractiveAuthentication = false;
+      PermitEmptyPasswords = false;
+      X11Forwarding = false;
+      AllowTcpForwarding = false;
+      AllowAgentForwarding = false;
+      ClientAliveInterval = 300;
+      ClientAliveCountMax = 2;
     };
   };
 
@@ -38,19 +46,20 @@
     wantedBy = [ "suspend.target" "hibernate.target" ];
     serviceConfig = {
       Type = "oneshot";
-      User = "patrick";
-      Environment = "WAYLAND_DISPLAY=wayland-1 HOME=/home/patrick";
+      User = mainUser;
+      Environment = "WAYLAND_DISPLAY=wayland-1 HOME=${mainUserHome}";
       ExecStart = "${pkgs.writeShellScript "hyprland-resume" ''
         sleep 2
         export HYPRLAND_INSTANCE_SIGNATURE=$(ls /tmp/hypr/ | head -1)
         export WAYLAND_DISPLAY=wayland-1
-        export HOME=/home/patrick
+        export HOME=${mainUserHome}
         ${pkgs.hyprland}/bin/hyprctl dispatch dpms on
         ${pkgs.hyprland}/bin/hyprctl keyword monitor "eDP-1,2560x1600@60,0x0,1"
         ${pkgs.hyprland}/bin/hyprctl keyword monitor "HDMI-A-1,3840x2160@60,2560x0,1.25,vrr,0"
       ''}";
     };
   };
+  systemd.services."systemd-backlight@backlight:nvidia_0".enable = false;
 
   services.hardware.openrgb = {
     enable = true;
@@ -131,6 +140,7 @@
     enable = true;
     extraPortals = [
       pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gtk
     ];
     config.common.default = "*";
   };

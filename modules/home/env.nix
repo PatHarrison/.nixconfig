@@ -18,5 +18,8 @@
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     QT_ENABLE_HIGHDPI_SCALING = "1";
     QT_SCALE_FACTOR_ROUNDING_POLICY = "RoundPreferFloor";
+
+    GDK_BACKEND = "wayland,x11";
+    GDK_SCALE = "1";
   };
 }

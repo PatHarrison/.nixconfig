@@ -1,11 +1,13 @@
+{ pkgs, secrets ? {}, ... }:
+
 {
   programs.git = {
     enable = true;
 
     settings = {
-      user.name = "PatHarrison";
-      user.email = "patrickgharrison@outlook.com";
-      github.user = "PatHarrison";
+      user.name = secrets.gitName or "User";
+      user.email = secrets.gitEmail or "user@example.com";
+      github.user = secrets.gitHub or "user";
 
       init.defaultBranch = "master";
 

@@ -1,29 +1,29 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, mainUser, mainUserHome, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
+    imports = [
+      ./hardware-configuration.nix
 
-    ../../modules/nixos/boot.nix          # Bootloader, kernel params, i2c
-    ../../modules/nixos/nvidia.nix        # Nvidia drivers & settings
-    ../../modules/nixos/system-packages.nix
-    ../../modules/nixos/networking.nix    # Hostname, NM, timezone, locale
-    ../../modules/nixos/services.nix      # SSH, printing, udiskie, openrgb, libinput, etc.
-    ../../modules/nixos/stylix.nix        # Stylix base16 theming
-    ../../modules/nixos/locale.nix        # Optional locale tweaks
-  ];
+      ../../modules/nixos/boot.nix          # Bootloader, kernel params, i2c
+      ../../modules/nixos/nvidia.nix        # Nvidia drivers & settings
+      ../../modules/nixos/system-packages.nix
+      ../../modules/nixos/networking.nix    # Hostname, NM, timezone, locale
+      ../../modules/nixos/services.nix      # SSH, printing, udiskie, openrgb, libinput, etc.
+      ../../modules/nixos/stylix.nix        # Stylix base16 theming
+      ../../modules/nixos/locale.nix        # Optional locale tweaks
+    ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  nix.settings.allowed-users = [ "patrick" ];
-  nix.settings.trusted-users = [ "root" "patrick" ];
+    nix.settings.allowed-users = [ mainUser ];
+    nix.settings.trusted-users = [ "root" mainUser ];
 
-  users.users.patrick = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" "audio" "input" "i2c" "plugdev" "docker" ];
-  };
+    users.users.${mainUser} = {
+      isNormalUser = true;
+      extraGroups = [ "wheel" "networkmanager" "video" "audio" "input" "i2c" "plugdev" "docker" ];
+    };
 
-  # --------- SYSTEM STATE VERSION ---------- #
-  system.stateVersion = "25.05"; # Do not change this unless you know what you're doing
-  # ----------------------------------------- #
+    # --------- SYSTEM STATE VERSION ---------- #
+    system.stateVersion = "25.05"; # Do not change this unless you know what you're doing
+    # ----------------------------------------- #
 }

@@ -3,5 +3,10 @@
 {
   networking.hostName = "odin";
   networking.networkmanager.enable = true;
-  networking.firewall.allowedTCPPorts = [ 8082 ];
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 22 ];
+    allowedUDPPorts = [ ];
+    allowPing = false;
+  };
 }

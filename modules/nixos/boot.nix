@@ -14,8 +14,9 @@
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     "nvidia.NVreg_TemporaryFilePath=/var/tmp"
     "nvidia.NVreg_EnableGpuFirmware=0"
-    "nvidia.NVreg_RestoreMemoryAllocations=1"  # add this
+    "nvidia.NVreg_RestoreMemoryAllocations=1"
     "preempt=full"
+    "acpi=no_auto_ssdt"
     "acpi_osi=\"!Windows 2015\""
     "acpi_osi=Linux"
     "init_on_alloc=1"
@@ -24,14 +25,16 @@
     "randomize_va_space=2"
     "vsyscall=none"
     "debugfs=off"
+    "kernel.sysrq=0"
   ];
 
   boot.kernel.sysctl = {
     "kernel.dmesg_restrict" = 1;
     "kernel.kptr_restrict" = 2;
     "kernel.unprivileged_bpf_disabled" = 1;
-    "net.core.bpf_jit_harden" = 2;
+    "kernel.unprivileged_userns_clone" = 0;
     "kernel.yama.ptrace_scope" = 2;
+    "net.core.bpf_jit_harden" = 2;
     "net.ipv4.conf.all.rp_filter" = 1;
     "net.ipv4.conf.default.rp_filter" = 1;
     "net.ipv4.tcp_syncookies" = 1;
@@ -43,7 +46,8 @@
     options nvidia NVreg_PreserveVideoMemoryAllocations=1
     options nvidia NVreg_TemporaryFilePath=/var/tmp
   '';
-  boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
+  boot.kernelModules = [ "i2c-dev" "i2c-piix4" "intel_backlight"];
+  boot.blacklistedKernelModules = [ "algif_aead" "esp4" "esp6" "rxrpc" ];
 
   nix.gc = {
     automatic = true;
